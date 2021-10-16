@@ -1,0 +1,111 @@
+<nb-card style="margin-left: 1rem;margin-right: 3.4rem;margin-top: 4.5rem;">
+  <div class="container1">
+    <a href="/projects">
+      <img style="margin-top: 1.5rem;" src="assets/backBtn.png" width="40" height="40">
+    </a>
+    <div class="text">UPDATE PROJECT</div>
+    <form [formGroup]="formGroup">
+      <div class="col">
+        <div class="row">
+          <div class="col" style="margin-right: 1rem">
+            <div class="row">
+              <label>Project Details</label>
+            </div>
+            <hr style="border-width: unset;border-color: black;">
+            <br />
+            <div class="row">
+              <label class="name">Project</label>
+              <input type="text" maxlength="30" id="Name" class="form-control" formControlName="name" [(ngModel)]="project.name" />
+              <app-form-validation-common [displayError]="isFieldValid('name')"
+                errorMsg="Please do assign a name for the project">
+              </app-form-validation-common>
+            </div>
+            <br />
+            <!-- <div class="row">
+          <label class="code">Code</label>
+          <input type="text" id="code" class="form-control" formControlName="code" readonly
+            [(ngModel)]="project.code" />
+          <app-form-validation-common [displayError]="isFieldValid('code')" errorMsg="Cannot edit this feild">
+          </app-form-validation-common>
+        </div> -->
+            <br />
+            <div class="row">
+              <label for="Status">Status</label>
+              <select id="Status" name="status" class="form-control" formControlName="status"
+                [(ngModel)]="project.status">
+                <option>ACTIVE</option>
+                <option>INACTIVE</option>
+              </select>
+              <app-form-validation-common [displayError]="isFieldValid('status')" errorMsg="Compulsory to set a status">
+              </app-form-validation-common>
+            </div>
+            <br />
+            <div class="row">
+              <label for="workWeek">Work Week</label>
+              <select id="workWeek" name="workWeek" class="form-control" formControlName="workWeek"
+                [(ngModel)]="project.workWeek">
+                <option>WEEK_DAYS</option>
+                <option>SEVEN_DAYS</option>
+              </select>
+              <app-form-validation-common [displayError]="isFieldValid('workWeek')" errorMsg="Compulsory to set a workWeek">
+              </app-form-validation-common>
+            </div>
+            <br />
+            <div class="row">
+              <label for="LeaderName">Project Leader</label>
+              <select id="LeaderName" class="form-control" formControlName="leaderName"
+                [(ngModel)]="project.leaderName">
+                <option *ngFor="let p of user">{{ p.fullName }}</option>
+              </select>
+              <app-form-validation-common [displayError]="isFieldValid('leaderName')"
+                errorMsg="Compulsory to assign a leader">
+              </app-form-validation-common>
+            </div>
+            <br />
+            <div class="row">
+              <label for="AssignProject">Assigned Users</label>
+              <ng-multiselect-dropdown id="AssignProject" class="form-control" formControlName="groupBySelectedItems"
+                [placeholder]="'Select Here'" [data]="user" [ngModel]="groupBySelectedItems"
+                (ngModelChange)="projectUserChange($event)" [settings]="usersDropdownSettings"
+                (onSelect)="onItemSelect($event)" (onDeSelect)="onDeSelectItem($event)">
+              </ng-multiselect-dropdown>
+            </div>
+          </div>
+          <div class="col">
+            <div class="row">
+              <label>Release Details</label>
+            </div>
+            <hr style="border-width: unset;border-color: black;">
+            <br />
+            <div class="row">
+              <label for="releaseName">Release Name</label>
+              <input type="text" maxlength="15" id="releaseName" class="form-control" placeholder="Enter Release Name"
+                formControlName="releaseName" [(ngModel)]="projectRelease.name" />
+              <app-form-validation-common *ngIf="formGroup.controls['releaseName'].hasError('required')"
+                [displayError]="isFieldValid('releaseName')" errorMsg="Please Do assign a name for the release">
+              </app-form-validation-common>
+            </div>
+            <br />
+            <div class="row">
+              <label for="releaseDescription">Description</label>
+              <textarea type="text" maxlength="255" rows="3" id="releaseDescription" class="form-control" placeholder="Description"
+                formControlName="releaseDescription" [(ngModel)]="projectRelease.description"></textarea>
+            </div>
+            <br />
+            <div class="row">
+              <label for="target_date">Target Date</label>
+              <input id="target_date" class="form-control" type="date" placeholder="Target Date"
+                formControlName="targetDate" [(ngModel)]="projectRelease.targetDate">
+              <app-form-validation-common *ngIf="formGroup.controls['targetDate'].hasError('required')"
+                [displayError]="isFieldValid('targetDate')" errorMsg="*Please select a targeting date">
+              </app-form-validation-common>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="submit1" (click)="delete()">DELETE</button>
+      <button class="submit" (click)="onSubmit()">UPDATE</button>
+      <!-- <button class="submit1" (click)="cancel()">CANCEL</button> -->
+    </form>
+  </div>
+</nb-card>

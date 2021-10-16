@@ -1,0 +1,74 @@
+<div class="sidebar" id="myDIV" *ngIf="router.url !== '/login' && router.url !== '/login-register'">
+  <br /> <br /> <br />
+  <br /> <br /> <br />
+  <div class="sidebar-logo">
+    <img id="logo" src="\assets\project_lgo.png">
+  </div>
+
+  <div class="links">
+
+    <a routerLink="/dashboard" routerLinkActive="active">
+      <i class="fas fa-qrcode"></i>
+      <span>Scrum Board</span>
+    </a>
+
+    <a routerLink="/backlog" routerLinkActive="active">
+      <i class="fas fa-swatchbook"></i>
+      <span>Backlog</span>
+    </a>
+
+    <a role="button"  class="dropdown-toggle" routerLinkActive="active" data-bs-toggle="collapse"
+      data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+      <i class="fas fa-file"></i>
+      <span class="caret">Reports</span><span class="caret" style="padding-left: 20px;"></span>
+    </a>
+    <ul id="collapseOne" class="collapse hide">
+      <li><a class="dropdown-item" routerLink="/burndownChart" routerLinkActive="active"><i
+            class="fas fa-chart-line"></i>Burn Down</a></li>
+      <li><a class="dropdown-item" routerLink="/defect-trend" routerLinkActive="active"><i
+            class="fas fa-bug"></i>Defects Trend</a></li>
+      <li><a class="dropdown-item" routerLink="/sprint-over-velocity" routerLinkActive="active"><i
+            class="fas fa-calendar-alt"></i>Sprint Velocity</a>
+      </li>
+      <li><a class="dropdown-item" routerLink="/risk-analysis" routerLinkActive="active"><i
+        class="fa fa-exclamation-triangle"></i>Risk analysis</a>
+  </li>
+    </ul>
+
+    <a routerLink="/projects" routerLinkActive="active">
+      <i class="fas fa-link"></i>
+      <span>Projects</span>
+    </a>
+
+    <a routerLink="/epics" routerLinkActive="active">
+      <i class="fas fa-stream"></i>
+      <span>Epics</span>
+    </a>
+
+    <a routerLink="/user-stories" routerLinkActive="active">
+      <i class="fas fa-calendar"></i>
+      <span>Stories</span>
+    </a>
+
+    <a routerLink="/task" routerLinkActive="active">
+      <i class="far fa-question-circle"></i>
+      <span>Task</span>
+    </a>
+
+    <a routerLink="/issue" routerLinkActive="active">
+      <i class="fas fa-bug"></i>
+      <span>Issue</span>
+    </a>
+
+    <a routerLink="/sprint" routerLinkActive="active">
+      <i class="fas fa-sliders-h"></i>
+      <span>Sprint</span>
+    </a>
+  </div>
+  <footer id="footer">
+    <hr id="hr">
+    <div class="fText">Copyright @ 2021 TaskCheck</div>
+    <div class="rights">All rights reserved</div>
+  </footer>
+</div>
+

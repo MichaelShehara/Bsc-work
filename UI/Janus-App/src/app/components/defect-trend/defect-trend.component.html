@@ -1,0 +1,38 @@
+<div class="head">
+  <h5>Defect Trend</h5>
+</div>
+
+<div class="row" style="padding: 0;">
+  <div class="col-md-12" style="padding: 0;">
+    <div class="card-col">
+      <nb-card size="small" style="margin-left: 1rem;padding: 1rem;margin-bottom: 1rem;margin-right: 3.4rem">
+        <canvas height="75" baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+          [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
+        </canvas>
+      </nb-card>
+    </div>
+  </div>
+</div>
+
+<div class="card-row">
+  <div class="card-col">
+    <nb-card size="small" style="margin-left: 1rem;margin-right: 3.4rem;margin-bottom: 1rem;">
+      <div class="container">
+        <table class="table table-striped table-hover">
+          <thead class="table-dark">
+            <tr>
+              <th>Release Name</th>
+              <th>Issue Count</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let defect of defectChartData[0]">
+              <td>{{ defect.releaseName }}</td>
+              <td>{{ defect.issueCount }} </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </nb-card>
+  </div>
+</div>

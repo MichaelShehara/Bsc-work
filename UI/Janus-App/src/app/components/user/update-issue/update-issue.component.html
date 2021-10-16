@@ -1,0 +1,406 @@
+<nb-card style="margin-left: 1rem;margin-right: 3.4rem;margin-top: 4.5rem;">
+  <div class="container1">
+    <a href="/issue">
+      <img style="margin-top: 1.5rem;" src="assets/backBtn.png" width="40" height="40" />
+    </a>
+    <div class="text">UPDATE ISSUE</div>
+    <hr style="border-width: unset;border-color: #343a40; margin-top: 1rem;margin-bottom: 1rem;">
+    <form [formGroup]="issueForm">
+      <div class="row">
+        <div class="col" style="margin-right: 1rem">
+          <div class="row">
+            <label for="Identifier">Issue Code</label>
+            <input id="Identifier" disabled type="text" class="form-control" placeholder="Identifier"
+              formControlName="identifier" [(ngModel)]="issue.identifier" />
+          </div>
+          <br />
+          <div class="row">
+            <label for="Priority">Priority</label>
+            <select id="Priority" class="form-control" name="priority" formControlName="priority"
+              [(ngModel)]="issue.priority">
+              <option>HIGH</option>
+              <option>MEDIUM</option>
+              <option>LOW</option>
+            </select>
+          </div>
+          <br />
+          <div class="row">
+            <label for="Severity">Severity</label>
+            <select id="Severity" class="form-control" name="severity" formControlName="severity"
+              [(ngModel)]="issue.severity">
+              <option>HIGH</option>
+              <option>MEDIUM</option>
+              <option>LOW</option>
+            </select>
+          </div>
+          <br />
+          <div class="row">
+            <label for="status">Status</label>
+            <input id="status" class="status" type="button" formControlName="status" [(ngModel)]="issue.status" />
+          </div>
+          <br />
+          <div class="row">
+            <label for="Assignee">Assignee</label>
+            <select id="Assignee" class="form-control" formControlName="assignee" [(ngModel)]="issue.assignee"
+              (ngModelChange)="onAssigneeChange($event)">
+              <option *ngFor="let assign of user" [ngValue]="assign.id">
+                {{ assign.fullName }} ({{ assign.username }})
+              </option>
+            </select>
+            <app-form-validation-common [displayError]="isFieldValid('assignee')"
+              errorMsg="*Compulsory to assign someone">
+            </app-form-validation-common>
+          </div>
+          <br />
+          <div class="row">
+            <label for="Resloved">Resolved By</label>
+            <select id="Resloved" class="form-control" formControlName="resolvedBy" [(ngModel)]="issue.resolvedBy"
+              (ngModelChange)="onResolvedByChange($event)">
+              <option *ngFor="let resloved of user" [ngValue]="resloved.id">
+                {{ resloved.fullName }} ({{ resloved.username }})
+              </option>
+            </select>
+            <app-form-validation-common [displayError]="isFieldValid('resolvedBy')"
+              errorMsg="*Compulsory to assign someone">
+            </app-form-validation-common>
+          </div>
+          <br />
+          <div class="row">
+            <label for="Verified">Verified By</label>
+            <select id="Verified" class="form-control" formControlName="verifiedBy" [(ngModel)]="issue.verifiedBy"
+              (ngModelChange)="onVerifiedByChange($event)">
+              <option *ngFor="let verified of user" [ngValue]="verified.id">
+                {{ verified.fullName }} ({{ verified.username }})
+              </option>
+            </select>
+            <app-form-validation-common [displayError]="isFieldValid('verifiedBy')"
+              errorMsg="*Compulsory to assign someone">
+            </app-form-validation-common>
+          </div>
+        </div>
+        <div class="col">
+          <div class="row">
+            <label for="storypnts">Story Points</label>
+            <select id="storypnts" formControlName="storyPoint" class="form-control" [(ngModel)]="issue.storyPoint">
+              <option>1</option>
+              <option>3</option>
+              <option>5</option>
+              <option>8</option>
+              <option>13</option>
+              <option>20</option>
+              <option>40</option>
+              <option>100</option>
+            </select>
+            <app-form-validation-common [displayError]="isFieldValid('storyPoint')"
+              errorMsg="*Please select the amount of story points">
+            </app-form-validation-common>
+          </div>
+          <br />
+          <div class="row">
+            <label for="fixVersion">Fix Version</label>
+            <select id="fixVersion" class="form-control" formControlName="fixVersion" [(ngModel)]="issue.fixVersion"
+              (ngModelChange)="onFixedVersionChange($event)">
+              <option *ngFor="let r of projectRelease" [ngValue]="r.id">
+                {{ r.name }}
+              </option>
+            </select>
+            <app-form-validation-common [displayError]="isFieldValid('assignee')"
+              errorMsg="*Compulsory to assign someone"></app-form-validation-common>
+          </div>
+          <br />
+          <div class="row">
+            <label for="affectVersion">Affected Version</label>
+            <select id="affectVersion" class="form-control" formControlName="affectVersion"
+              [(ngModel)]="issue.affectVersion" (ngModelChange)="onAffetedVersionChange($event)">
+              <option *ngFor="let r of projectRelease" [ngValue]="r.id">
+                {{ r.name }}
+              </option>
+            </select>
+            <app-form-validation-common [displayError]="isFieldValid('assignee')"
+              errorMsg="*Compulsory to assign someone"></app-form-validation-common>
+          </div>
+          <br />
+          <div class="row">
+            <label for="impactedArea">Impacted Area</label>
+            <textarea class="form-control" id="impactedArea" placeholder="Additional Information"
+              formControlName="impactedArea" [(ngModel)]="issue.impactedArea" rows="3"  maxlength="255"></textarea>
+          </div>
+          <br />
+          <div class="row">
+            <label for="Description">Description</label>
+            <textarea id="Description" class="form-control" placeholder="Description" formControlName="description"
+              [(ngModel)]="issue.description" rows="3"  maxlength="255"></textarea>
+          </div>
+          <br />
+          <div class="row">
+            <label for="Summary">Summary</label>
+            <textarea id="Summary" class="form-control" placeholder="Summary" formControlName="summary"
+              [(ngModel)]="issue.summary" rows="3"  maxlength="255"></textarea>
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="row" style="float: right" *ngIf="isQaShowing">
+        <button class="submit" (click)="onSubmit()">UPDATE</button>
+        <a class="submit1" (click)="delete()">DELETE</a>
+      </div>
+      <div class="row" style="float: right" *ngIf="isDevDisabled">
+        <button class="submit" data-bs-toggle="modal" data-bs-target="#resolvedPopup">RESOLVED</button>
+        <a class="submit1" data-bs-toggle="modal" data-bs-target="#rejectPopup">REJECT</a>
+        <div class="modal fade" id="resolvedPopup" tabindex="-1" aria-labelledby="resolvedPopupLabel"
+          aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form [formGroup]="resolvedForm">
+                  <div class="mb-3">
+                    <label for="fixVersion">Fix Version</label>
+                    <select id="fixVersion" class="form-control" formControlName="fixVersion"
+                      [(ngModel)]="issue.fixVersion" (ngModelChange)="onFixedVersionChange($event)">
+                      <option *ngFor="let r of projectRelease" [ngValue]="r.id">
+                        {{ r.name }}
+                      </option>
+                    </select>
+                    <app-form-validation-common [displayError]="isFieldValidInResolvedPopup('fixVersion')"
+                      errorMsg="*Fix Version is Required"></app-form-validation-common>
+                  </div>
+                  <div class="mb-3">
+                    <label for="Assignee">Assignee</label>
+                    <select id="Assignee" class="form-control" formControlName="assignee" [(ngModel)]="issue.assignee"
+                      (ngModelChange)="onAssigneeChange($event)">
+                      <option *ngFor="let assign of user" [ngValue]="assign.id">
+                        {{ assign.username }} ({{ assign.fullName }})
+                      </option>
+                    </select>
+                    <app-form-validation-common [displayError]="isFieldValidInResolvedPopup('fixVersion')"
+                      errorMsg="*Assignee is Required"></app-form-validation-common>
+                  </div>
+                  <div class="mb-3">
+                    <label for="Status" class="form-label">Status</label>
+                    <select id="Status" class="form-control" name="status" formControlName="status"
+                      [(ngModel)]="issue.status">
+                      <option>RESOLVED</option>
+                      <option>NOT_A_DEFECT</option>
+                      <option>AS_DESIGNED</option>
+                    </select>
+                    <app-form-validation-common [displayError]="isFieldValidInResolvedPopup('status')"
+                      errorMsg="*Status is Required"></app-form-validation-common>
+                  </div>
+                  <div class="mb-3">
+                    <label for="comment">Comment</label>
+                    <textarea class="form-control" id="comment" placeholder="Comment" formControlName="comment"
+                      [(ngModel)]="issue.comment" rows="3" maxlength="255"></textarea>
+                    <app-form-validation-common [displayError]="isFieldValidInResolvedPopup('comment')"
+                      errorMsg="*Comment is Required"></app-form-validation-common>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="close()">
+                  CLOSE
+                </button> -->
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="resolved()">
+                  OK
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal fade" id="rejectPopup" tabindex="-1" aria-labelledby="rejectPopupLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form [formGroup]="rejectForm">
+                  <div class="mb-3">
+                    <label for="Assignee">Assignee</label>
+                    <select id="Assignee" class="form-control" formControlName="assignee" [(ngModel)]="issue.assignee"
+                      (ngModelChange)="onAssigneeChange($event)">
+                      <option *ngFor="let assign of user" [ngValue]="assign.id">
+                        {{ assign.username }} ({{ assign.fullName }})
+                      </option>
+                    </select>
+                    <app-form-validation-common [displayError]="isFieldValidInRejectPopup('assignee')"
+                      errorMsg="*Assignee is Required"></app-form-validation-common>
+                  </div>
+                  <div class="mb-3">
+                    <label for="Status" class="form-label">Status</label>
+                    <select id="Status" class="form-control" name="status" formControlName="status"
+                      [(ngModel)]="issue.status">
+                      <option>NOT_A_DEFECT</option>
+                      <option>AS_DESIGNED</option>
+                    </select>
+                    <app-form-validation-common [displayError]="isFieldValidInRejectPopup('status')"
+                      errorMsg="*Status is Required"></app-form-validation-common>
+                  </div>
+                  <div class="mb-3">
+                    <label for="comment">Comment</label>
+                    <textarea class="form-control" id="comment" placeholder="Comment" formControlName="comment"
+                      [(ngModel)]="issue.comment" rows="3" maxlength="255"></textarea>
+                    <app-form-validation-common [displayError]="isFieldValidInRejectPopup('comment')"
+                      errorMsg="*Comment is Required"></app-form-validation-common>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="close()">
+                  CLOSE
+                </button> -->
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="reject()">
+                  OK
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="float: right" *ngIf="isQARoleShowing">
+        <button class="submit" type="button" data-bs-toggle="modal" data-bs-target="#closedPopup">CLOSED</button>
+        <a class="submit1" type="button" data-bs-toggle="modal" data-bs-target="#reOpenPopup">REOPEN</a>
+        <div class="modal fade" id="closedPopup" tabindex="-1" aria-labelledby="closedPopupLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form [formGroup]="closedForm">
+                  <div class="mb-3">
+                    <label for="Assignee">Assignee</label>
+                    <select id="Assignee" class="form-control" formControlName="assignee" [(ngModel)]="issue.assignee"
+                      (ngModelChange)="onAssigneeChange($event)">
+                      <option *ngFor="let assign of user" [ngValue]="assign.id">
+                        {{ assign.username }} ({{ assign.fullName }})
+                      </option>
+                    </select>
+                    <app-form-validation-common [displayError]="isFieldValidInClosedPopup('assignee')"
+                      errorMsg="*Assignee is Required"></app-form-validation-common>
+                  </div>
+                  <div class="mb-3">
+                    <label for="comment">Comment</label>
+                    <textarea class="form-control" id="comment" placeholder="Comment" formControlName="comment"
+                      [(ngModel)]="issue.comment" rows="3" maxlength="255"></textarea>
+                    <app-form-validation-common [displayError]="isFieldValidInClosedPopup('comment')"
+                      errorMsg="*Comment is Required"></app-form-validation-common>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="close()">
+                  CLOSE
+                </button> -->
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closed()">
+                  OK
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal fade" id="reOpenPopup" tabindex="-1" aria-labelledby="reOpenPopuppLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form [formGroup]="reopenForm">
+                  <div class="mb-3">
+                    <label for="Assignee">Assignee</label>
+                    <select id="Assignee" class="form-control" formControlName="assignee" [(ngModel)]="issue.assignee"
+                      (ngModelChange)="onAssigneeChange($event)">
+                      <option *ngFor="let assign of user" [ngValue]="assign.id">
+                        {{ assign.username }} ({{ assign.fullName }})
+                      </option>
+                    </select>
+                    <app-form-validation-common [displayError]="isFieldValidInReopenPopup('assignee')"
+                      errorMsg="*Assignee is Required"></app-form-validation-common>
+                  </div>
+                  <div class="mb-3">
+                    <label for="comment">Comment</label>
+                    <textarea class="form-control" id="comment" placeholder="Comment" formControlName="comment"
+                      [(ngModel)]="issue.comment" rows="3" maxlength="255"></textarea>
+                    <app-form-validation-common [displayError]="isFieldValidInReopenPopup('comment')"
+                      errorMsg="*Comment is Required"></app-form-validation-common>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-secondary" (click)="close()" data-bs-dismiss="modal">
+                  CLOSE
+                </button> -->
+                <button type="button" class="btn btn-secondary" (click)="reopen()" data-bs-dismiss="modal">
+                  OK
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="float: right" *ngIf="isAdminPMShowing">
+        <button class="submit" (click)="close()">CLOSE</button>
+      </div>
+    </form>
+    <hr style="border-width: unset;border-color: #343a40; margin-top: 4rem;margin-bottom: 1rem;">
+    <div class="mb-3">
+      <label for="formFile" class="form-label">Upload Attachments Here</label>
+      <input id="formFile" class="form-control" type="file" (change)="uploadAttachments($event.target.files[0])" />
+    </div>
+    <nb-progress-bar [value]="progress" [displayValue]="true" status="success"></nb-progress-bar>
+    <hr style="border-width: unset;border-color: #343a40; margin-top: 4rem;margin-bottom: 1rem;">
+    <nb-card>
+      <nb-card-body>
+        <nb-tabset fullWidth>
+          <nb-tab tabTitle="Comments" [badgeText]="commentsCount" badgeStatus="success" tabIcon="bell-outline">
+            <table class="table table-striped table-hover">
+              <thead class="table-dark">
+                <tr>
+                  <th scope="col">IDENTIFIER</th>
+                  <th scope="col">Comment</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let c of comments">
+                  <td>{{ c.identifier }}</td>
+                  <td>{{ c.comment }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </nb-tab>
+          <nb-tab tabTitle="Attachments" [badgeText]="attachmentCount" badgeStatus="success" tabIcon="email-outline">
+            <table class="table table-striped table-hover">
+              <thead class="table-dark">
+                <tr>
+                  <th scope="col">IDENTIFIER</th>
+                  <th scope="col">NAME</th>
+                  <th scope="col">DESCRIPTION</th>
+                  <th scope="col">FORMAT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let a of attachments" (click)="downloadAttachment($event, a)">
+                  <td>{{ a.identifier }}</td>
+                  <td>{{ a.name }}</td>
+                  <td>{{ a.description }}</td>
+                  <td>{{ a.format }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </nb-tab>
+        </nb-tabset>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</nb-card>

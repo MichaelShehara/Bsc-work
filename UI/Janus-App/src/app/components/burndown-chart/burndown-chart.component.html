@@ -1,0 +1,99 @@
+<div class="head">
+  <h5>Burndown Chart</h5>
+</div>
+
+<div class="row" style="padding: 0;">
+  <div class="col-md-9">
+    <div class="card-col">
+      <nb-card size="small" style="padding: 1rem;margin-bottom: 1rem;">
+        <canvas height="100" baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+          [colors]="lineChartColors" [legend]="true" [chartType]="lineChartType" [plugins]="lineChartPlugins"
+          (chartClick)="chartClicked($event)">
+        </canvas>
+      </nb-card>
+    </div>
+  </div>
+  <div class="col-md-3" style="padding: 0;">
+    <div class="card-col">
+      <nb-card style="margin-right: 3.4rem;padding: 0.5rem;margin-bottom: 1rem;">
+        <div class="container3">
+          <div class="row">
+            <div class="col-md-4">
+              <img src="assets/ICONS/calendar.png" width="50" height="50" />
+            </div>
+            <div class="col-md-8">
+              <label class="topic">Start date</label><br>
+              <label class="Value">{{ activeSprintDetails[0]?.startAt }}</label>
+            </div>
+          </div>
+        </div>
+      </nb-card>
+      <nb-card style="margin-right: 3.4rem;padding: 0.5rem;margin-bottom: 1rem;">
+        <div class="container3">
+          <div class="row">
+            <div class="col-md-4">
+              <img src="assets/ICONS/calendar.png" width="50" height="50" />
+            </div>
+            <div class="col-md-8">
+              <label class="topic">End Date</label><br>
+              <label class="Value">{{ activeSprintDetails[0]?.endAt }}</label>
+            </div>
+          </div>
+        </div>
+      </nb-card>
+      <nb-card style="margin-right: 3.4rem;padding: 0.5rem;margin-bottom: 1rem;">
+        <div class="container3">
+          <div class="row">
+            <div class="col-md-4">
+              <img src="assets/ICONS/bar-graph.png" width="50" height="50" />
+            </div>
+            <div class="col-md-8">
+              <label class="topic">Team Velocity</label><br>
+              <label class="Value">{{ total }}</label>
+            </div>
+          </div>
+        </div>
+      </nb-card>
+      <nb-card style="margin-right: 3.4rem;padding: 0.5rem;margin-bottom: 1rem;">
+        <div class="container3">
+          <div class="row">
+            <div class="col-md-4">
+              <img src="assets/ICONS/briefcase.png" width="50" height="50" />
+            </div>
+            <div class="col-md-8">
+              <label class="topic">Task Delivered</label><br>
+              <label class="Value">{{ totalTasks }}</label>
+            </div>
+          </div>
+        </div>
+      </nb-card>
+    </div>
+  </div>
+</div>
+
+<div class="card-row">
+  <div class="card-col">
+    <nb-card size="tiny" style="margin-left: 1rem;margin-right: 3.4rem;">
+      <div class="container">
+        <table class="table table-striped table-hover">
+          <thead class="table-dark">
+            <tr>
+              <th>ID</th>
+              <th>SPRINT NAME</th>
+              <th>STATUS</th>
+              <th>GOALS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ activeSprintDetails[0]?.id }}</td>
+              <td>{{ activeSprintDetails[0]?.name }} </td>
+              <td>{{ activeSprintDetails[0]?.status }}</td>
+              <td>{{ activeSprintDetails[0]?.goals }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </nb-card>
+  </div>
+</div> 

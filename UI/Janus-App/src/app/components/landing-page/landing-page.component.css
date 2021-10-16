@@ -1,0 +1,102 @@
+
+.progress{
+  margin-top: 20px ;
+  margin-left: 320px ;
+  width: 76% ;
+  height: 30px ;
+  font-size: 15px;
+}
+
+.progress-bar-success{
+  background-color: #F50909 ;
+}
+
+.progress-bar-warning{
+  background-color: #F5DC00 ;
+}
+.progress-bar-danger{
+  background-color: #10BC39;
+}
+
+/*task table styles */
+
+.container1{
+
+  background: #fff;
+  width: 1200px;
+  max-height: 400px ;
+  height: 400px ;
+  padding: 25px 40px 10px 40px;
+  box-shadow: 0px 11px 25px 2px rgba(0, 0, 0, 0.14);
+  border-radius: 8px;
+  border-width: 5px; 
+  border-color: #3B1840 ;
+  padding-bottom: 50px ;
+  margin-left: 300px;
+  margin-top: 10px ;
+}
+
+.nav-bar{
+    background-color: #684D6C;
+    width: 1200px;
+    height: 20px ;
+    margin-top: -25px ;
+    margin-left: -40px ;
+    border-radius: 10px 10px 0 0 ;
+}
+
+.topic{
+  color: white;
+  margin-left: 10px ;
+  margin-top: -20px ;
+
+}
+
+.container2{
+
+  background: #fff;
+  width: 1200px;
+  max-height: 230px ;
+  height: 250px ;
+  padding: 25px 40px 10px 40px;
+  box-shadow: 0px 11px 25px 2px rgba(0, 0, 0, 0.14);
+  border-radius: 8px;
+  border-width: 5px; 
+  border-color: #3B1840 ;
+  padding-bottom: 50px ;
+  margin-left: 300px;
+  margin-top: 10px ;
+}
+
+/*grid vies styles*/
+
+#todo{
+  color: #888383;
+  font-weight: bold;
+}
+
+/*table styles*/
+
+.table-hover td{
+  font-size: 13px;
+}
+
+.table-hover th{
+  font-size: 13px;
+}
+
+
+.arrow img{
+   height: 50px ;
+   width: 50px;
+   margin-left: -10px;
+   margin-top: -10px;
+}
+
+
+.icon img{
+  height: 30px ;
+  width: 30px;
+ 
+
+}

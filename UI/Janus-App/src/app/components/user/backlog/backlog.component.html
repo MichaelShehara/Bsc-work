@@ -1,0 +1,193 @@
+
+<body>
+<div *ngIf="loaderService.isloading | async" class="loader">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar> 
+</div>
+
+
+<h5 class="heading" style="margin-top: 4.5rem;">Backlog</h5>
+
+<div *ngIf="visiblebacklog" style="height: 600px;">
+<div class="container1" style="height: 40%;">
+
+  <table class="table table-stripe table-hover" >
+    <thead class="table-dark">
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">ID</th>
+        <th scope="col">TYPE</th>
+        <th scope="col">PRIORITY</th>
+        <th scope="col">SEVERITY</th>
+        <th scope="col">SUMMARY</th>
+        <th scope="col">CREATED BY</th>
+        <!-- <th scope="col">Sprint Id</th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let task of taskList" (click)="selectsTask($event, task)" data-bs-toggle="modal"
+        data-bs-target="#assignTaskPopup" ([taskid])="task.id">
+        <td scope="row"><img src="\assets\ICONS\list.png">Task</td>
+        <td>{{ task.identifier }}</td>
+        <td><img [src]="task.type ==='DEV' ? '/assets/ICONS/list.png': '/assets/ICONS/testing.png'">{{ task.type }}
+        </td>
+        <td><img
+            [src]="task.priority ==='HIGH' ? '/assets/ICONS/redA.png': task.priority ==='MEDIUM' ? '/assets/ICONS/yelloa.png' : '/assets/ICONS/GREENa.png'">{{ task.priority }}
+        </td>
+        <td>{{ task.severity }}</td>
+        <td>{{task.summary | slice:0:25}}...</td>
+        <td>{{ task.assignee.fullName }}</td>
+        <!-- <td><select  class="form-control" (ngModelChange)="onChange($event)">
+          <option *ngFor="let s of sprintList" [ngValue]="s.id">
+            {{ s.id }} ({{ s.name }})
+          </option>
+        </select></td> -->
+      </tr>
+    </tbody>
+  </table>
+</div>
+<br>
+<div class="container1" style="height: 40%;">
+  <table class="table table-striped table-hover" >
+    <thead class="table-dark">
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">ID</th>
+        <th scope="col">PRIORITY</th>
+        <th scope="col">SEVERITY</th>
+        <th scope="col">IMPACTED AREA</th>
+        <th scope="col">SUMMARY</th>
+        <th scope="col">CREATED BY</th>
+        <!-- <th scope="col">Sprint Id</th> -->
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let issue of issueList" (click)="selectsIssue($event, issue)" data-bs-toggle="modal"
+        data-bs-target="#assignIssuePopup" ([issid])="issue.id">
+        <td scope="row"><img src="\assets\ICONS\alert.png">Issue</td>
+        <td>{{ issue.identifier }}</td>
+        <td><img
+            [src]="issue.priority ==='HIGH' ? '/assets/ICONS/redA.png': issue.priority ==='MEDIUM' ? '/assets/ICONS/yelloa.png' : '/assets/ICONS/GREENa.png'">{{ issue.priority }}
+        </td>
+        <td>{{ issue.severity }}</td>
+        <td>{{ issue.impactedArea }}</td>
+        <td>{{issue.summary | slice:0:25}}...</td>
+        <td>{{ issue.assignee?.fullName}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="modal fade" id="assignTaskPopup" tabindex="-1" aria-labelledby="assignTaskPopupLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">Assign Details
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="sprintForm">
+          <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Select Sprint</label>
+            <select class="form-select" aria-label="Default select example" formControlName="id" #selected
+              (ngModelChange)="onChange($event)">
+              <option *ngFor="let sprint of sprintList" [value]="sprint.id">
+                <span class="badge"> {{ sprint.id }}</span> ({{ sprint.name }})
+              </option>
+            </select>
+            <app-form-validation-common [displayError]="isFieldValid('id')" errorMsg="*Please assign a Sprint">
+            </app-form-validation-common>
+          </div>
+        </form>
+        <br>
+        <div *ngIf="selectedSprint">
+          <div class="mb-3">
+            <label class="form-label">Sprint Name: </label>
+            <input class="form-control" disabled [(ngModel)]="selectedSprint.name">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Sprint Start Date: </label>
+            <input class="form-control" disabled [(ngModel)]="selectedSprint.startAt">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Sprint End Date: </label>
+            <input class="form-control" disabled [(ngModel)]="selectedSprint.endAt">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="assignTask()">Assign</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="close()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="assignIssuePopup" tabindex="-1" aria-labelledby="assignIssuePopupLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">Assign Details
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="sprintForm">
+          <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Select Sprint</label>
+            <select class="form-select" aria-label="Default select example" formControlName="id" #selected
+              (ngModelChange)="onChange($event)">
+              <option *ngFor="let sprint of sprintList" [value]="sprint.id">
+                <span class="badge"> {{ sprint.id }}</span> ({{ sprint.name }})
+              </option>
+            </select>
+            <app-form-validation-common [displayError]="isFieldValid('id')" errorMsg="*Please assign a Sprint">
+            </app-form-validation-common>
+          </div>
+        </form>
+        <br>
+        <div *ngIf="selectedSprint">
+          <div class="mb-3">
+            <label class="form-label">Sprint Name: </label>
+            <input class="form-control" disabled [(ngModel)]="selectedSprint.name">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Sprint Start Date: </label>
+            <input class="form-control" disabled [(ngModel)]="selectedSprint.startAt">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Sprint End Date: </label>
+            <input class="form-control" disabled [(ngModel)]="selectedSprint.endAt">
+          </div>
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="assignIssue()">Assign</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="close()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<div style="margin-top: 4.5rem;" class="panel panel-primary left-margin" *ngIf="visibleEmptyDashbord">
+  <nb-card class="cardStyle" style="margin-left: 1rem;margin-right: 3.4rem;">
+    <nb-card-body>
+      <div id="notfound">
+        <div class="notfound">
+          <h1>Oops!</h1>
+          <h2>No tasks or issue assigned to this project yet</h2>
+          <p>Please Contact Your Project Manager or a developer</p>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+</div>
+</body>

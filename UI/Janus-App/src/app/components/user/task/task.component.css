@@ -1,0 +1,259 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap");
+
+* {
+  margin: 0;
+  outline: none;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background-image: linear-gradient(0deg, rgb(21, 21, 49), white); 
+}
+.head {
+  display: inline-flex;
+  margin-top: 4.5rem;
+  
+}
+
+.buttons{
+  float: right;
+}
+
+.head h5 {
+  margin-left: 1rem;
+}
+
+.createI {
+  margin-right: 20px;
+  margin-bottom: -8px;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 3px;
+  border: 1px solid black;
+  background-color: #b82b4a;
+  
+}
+
+.createI:hover {
+  background-color: #151650 !important;
+  color: white !important;
+}
+
+.d-flex {
+  margin-left: 350%;
+}
+
+#search {
+  height: 20px;
+  width: 20px;
+  margin-left: -35px;
+  margin-top: 10px;
+}
+
+.container1 {
+  background: #fff;
+  padding: 20px 20px 10px 20px;
+  box-shadow: 5px 10px 10px 2px #5a5a5a;
+  border-width: 5px;
+  border-color: #3b1840;
+  margin-top: 20px;
+  margin-right: 3.5rem;
+  margin-left: 1rem;
+  height: 81vh;
+}
+
+.table-dark {
+  background-color: #3b1840;
+}
+
+.table-dark:hover {
+  background-color: #3b1840;
+  color: white;
+}
+
+
+::ng-deep .mat-progress-bar-fill::after {
+  background-color: #aa0606;
+}
+
+::ng-deep .mat-progress-bar-buffer {
+  background: #E4E8EB;
+}
+
+::ng-deep .mat-progress-bar {
+  border-radius: 2px;
+}
+
+.loader{
+  position:fixed;
+  width: 100%;
+  z-index: 99;
+  margin-top: -2.7rem;
+}
+
+
+/*
+
+tr {
+  background: #f3f3f3;
+}
+
+tbody tr:hover {
+  background-color: #b4a6a6;
+}
+
+
+.change1 {
+  font-family: sans-serif !important;
+  background-color: white !important;
+  border-style: none !important;
+  font-size: 12px !important;
+  color: blue !important;
+}
+
+.change1:hover {
+  background-color: none !important;
+  text-decoration: underline !important;
+}
+
+
+
+
+
+.styled-table {
+
+  border-collapse: collapse;
+  margin: 15px 0;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  min-width: 1090px;
+  max-width: 100%;
+  margin-left: 20%;
+  float: left;
+}
+
+.styled-table thead tr {
+  color: black;
+  text-align: left;
+  background: lightgray;
+}
+
+.styled-table th,
+.styled-table td {
+  padding: 12px 15px;
+}
+
+.styled-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+/* .styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+} */
+
+/*
+
+.styled-table tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+
+.styled-table tbody tr.active-row {
+  font-weight: bold;
+  color: #009879;
+}
+
+.inprogrss {
+  text-align: left;
+  cursor: pointer;
+  border-radius: 8px;
+  color: black;
+  background-color: #f5e515;
+  letter-spacing: 2px;
+  padding-left: 2px;
+  padding-right: 2px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 10px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.update {
+  text-align: left;
+  cursor: pointer;
+  border: 1px #bc2550;
+  border-radius: 20px;
+  color: #bc2550;
+  background-color: white;
+  border-color: black;
+
+  padding-bottom: 7px;
+  padding-top: 7px;
+  font-family: "Ubuntu", sans-serif;
+
+  font-size: 10px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.open {
+  text-align: left;
+  cursor: pointer;
+  border-radius: 8px;
+  color: black;
+  background-color: red;
+  letter-spacing: 2px;
+  padding-left: 2px;
+  padding-right: 2px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 10px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.complete {
+  text-align: left;
+  cursor: pointer;
+  border-radius: 8px;
+  color: black;
+  background-color: green;
+  letter-spacing: 2px;
+  padding-left: 2px;
+  padding-right: 2px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 10px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.change1:hover {
+  color: white;
+  background-color: #bc2550;
+  border: none;
+}
+
+.heading h2 {
+  margin-left: 300px;
+  margin-bottom: 20px;
+  padding-top: 10px;
+  color: #2e2e2e;
+  margin-left: 600px;
+}
+
+*/
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: black;
+  text-align: center;
+  cursor: pointer;
+}

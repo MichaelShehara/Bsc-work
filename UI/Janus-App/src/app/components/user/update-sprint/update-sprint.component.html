@@ -1,0 +1,156 @@
+<nb-card style="margin-left: 1rem;margin-right: 3.4rem;margin-top: 4.5rem;">
+  <div class="container1">
+    <a href="/sprint">
+      <img style="margin-top: 1.5rem;" src="assets/backBtn.png" width="40" height="40" />
+    </a>
+    <div class="text">UPDATE SPRINT</div>
+    <hr style="border-width: unset;border-color: #343a40; margin-top: 1rem;margin-bottom: 1rem;">
+    <form [formGroup]="sprintForm">
+      <div class="row">
+        <label for="name">Name</label>
+        <input type="text" id="name" class="form-control" placeholder="Enter Sprint Name" formControlName="name"
+          [(ngModel)]="sprint.name" maxlength="30" />
+        <app-form-validation-common [displayError]="isFieldValid('name')"
+          errorMsg="*Please assign a name for the Sprint">
+        </app-form-validation-common>
+      </div>
+      <br />
+      <div class="row">
+        <label for="status">Status</label>
+        <input id="status" class="status" type="button" formControlName="status" [(ngModel)]="sprint.status" />
+      </div>
+      <!-- <br />
+      <div class="row">
+        <label for="status">Status</label>
+        <select id="status" placeholder="Status" class="form-control" formControlName="status"
+          [(ngModel)]="sprint.status">
+          <option>CANCELLED</option>
+          <option>COMPLETED</option>
+          <option>NOT_STARTED</option>
+          <option>STARTED</option>
+        </select>
+        <app-form-validation-common [displayError]="isFieldValid('status')" errorMsg="*Please provide a status">
+        </app-form-validation-common>
+      </div> -->
+      <br />
+      <div class="row">
+        <label for="startAt">Start Date</label>
+        <input id="startAt" matInput [min]="minDate" type="date" class="form-control" formControlName="startAt"
+          [(ngModel)]="sprint.startAt" />
+        <app-form-validation-common [displayError]="isFieldValid('startAt')" errorMsg="*Please provide a start date">
+        </app-form-validation-common>
+      </div>
+      <br />
+      <div class="row">
+        <label for="EndAt">End Date</label>
+        <input id="EndAt" matInput [min]="minDate" type="date" class="form-control" formControlName="endAt" rows="3"
+          [(ngModel)]="sprint.endAt" />
+        <app-form-validation-common [displayError]="isFieldValid('endAt')" errorMsg="*Please provide a end date">
+        </app-form-validation-common>
+      </div>
+      <br />
+      <div class="row">
+        <label for="goals">Goals</label>
+        <textarea class="form-control" id="goals" placeholder="Goals" rows="3" formControlName="goals"
+          [(ngModel)]="sprint.goals" maxlength="255"></textarea>
+        <app-form-validation-common [displayError]="isFieldValid('goals')" errorMsg="*Please provide a goal ">
+        </app-form-validation-common>
+      </div>
+      <br />
+      <div class="row" style="float: left" *ngIf="isPMStartShowing">
+        <button class="submit" (click)="update()">UPDATE</button>
+        <a class="submit1" (click)="delete()">DELETE</a>
+      </div>
+      <div class="row" style="float: right" *ngIf="isPMStartShowing">
+        <button class="submit" style="width: 10rem;" (click)="start()">START SPRINT</button>
+      </div>
+      <div class="row" style="float: right" *ngIf="isPMCompleteShowing">
+        <button class="submit" style="width: 12rem;" type="button" data-bs-toggle="modal"
+          data-bs-target="#completePopup">COMPLETE SPRINT</button>
+        <div class="modal fade" id="completePopup" tabindex="-1" aria-labelledby="completePopupLabel"
+          aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form [formGroup]="completeForm">
+                  <div class="mb-12">
+                    <label for="task">Pending Tasks</label>
+                    <table id="task" class="table table-striped table-hover">
+                      <thead class="table-dark">
+                        <tr>
+                          <th scope="col">ID</th>
+                          <th scope="col">SUMMARY</th>
+                          <th scope="col">ASSIGNEE</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let task of tasks">
+                          <td>{{ task.identifier }}</td>
+                          <td>{{ task.summary }}</td>
+                          <td>{{ task.assignee?.fullName }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="mb-12">
+                    <label for="task">Pending Issues</label>
+                    <table id="task" class="table table-striped table-hover">
+                      <thead class="table-dark">
+                        <tr>
+                          <th scope="col">ID</th>
+                          <th scope="col">SUMMARY</th>
+                          <th scope="col">ASSIGNEE</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let issue of issues">
+                          <td>{{ issue.identifier }}</td>
+                          <td>{{ issue.summary }}</td>
+                          <td>{{ issue.assignee?.fullName }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="mb-12">
+                    <label for="comment">Comment</label>
+                    <textarea class="form-control" id="comment" placeholder="Comment" formControlName="comment"
+                    [(ngModel)]="sprint.comment" rows="3" maxlength="255"></textarea>
+                    <app-form-validation-common [displayError]="isFieldValidCompletePopup('comment')"
+                      errorMsg="*Comment is Required"></app-form-validation-common>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="complete()" data-bs-dismiss="modal">
+                  OK
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="float: right" *ngIf="isAllShowing">
+        <button type="button" class="btn btn-primary" (click)="close()">CLOSE</button>
+      </div>
+    </form>
+  </div>
+</nb-card>
+
+<script language="javascript">
+  $(document).ready(function () {
+    $("#txtdate").datepicker({
+      showOn: "button",
+
+      // Button image stored on local device
+
+      buttonImage: "\assets\calender.png",
+      buttonImageOnly: true,
+    });
+  });
+
+</script>

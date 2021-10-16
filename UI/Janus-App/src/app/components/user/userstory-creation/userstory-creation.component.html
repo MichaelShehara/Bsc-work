@@ -1,0 +1,79 @@
+<nb-card style="margin-left: 1rem;margin-right: 3.4rem;margin-top: 4.5rem;">
+  <div class="container1">
+    <div class="text">CREATE USER STORY</div>
+    <hr style="border-width: unset;border-color: #343a40; margin-top: 1rem;margin-bottom: 1rem;">
+    <form [formGroup]="angForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col" style="margin-right: 1rem">
+          <div class="row">
+            <label for="epic">Epic</label>
+            <select id="epic" class="form-control" formControlName="epic" [(ngModel)]="story.epic"
+              (ngModelChange)="onChange($event)">
+              <option *ngFor="let e of epic" [ngValue]="e.id">
+                {{ e.identifier }}
+              </option>
+            </select>
+            <app-form-validation-common [displayError]="isFieldValid('epic')" errorMsg="*Compulsory to assign a epic">
+            </app-form-validation-common>
+          </div>
+          <br />
+          <div class="row">
+            <label for="LeaderName">Assignee</label>
+            <select id="LeaderName" [(ngModel)]="story.assignee" class="form-control" formControlName="assignee"
+              id="assignee" (ngModelChange)="onAssigneeChange($event)">
+              <option *ngFor="let p of user" [ngValue]="p.id">
+                {{ p.fullName }} ({{ p.username }})
+              </option>
+            </select>
+            <app-form-validation-common [displayError]="isFieldValid('assignee')"
+              errorMsg="*Compulsory to assign someone">
+            </app-form-validation-common>
+          </div>
+          <br />
+          <div class="row">
+            <label for="priority">Priority</label>
+            <select id="priority" name="priority" class="form-control" formControlName="priority"
+              [(ngModel)]="story.priority">
+              <option>HIGH</option>
+              <option>LOW</option>
+              <option>MEDIUM</option>
+            </select>
+            <app-form-validation-common [displayError]="isFieldValid('priority')" errorMsg="*Please select a priority">
+            </app-form-validation-common>
+          </div>
+          <br />
+          <div class="row">
+            <label for="type">Type</label>
+            <select id="type" name="type" class="form-control" formControlName="type" [(ngModel)]="story.type">
+              <option>USER_STORY</option>
+              <option>TECHNICAL_STORY</option>
+            </select>
+            <app-form-validation-common [displayError]="isFieldValid('type')" errorMsg="*Please select a type">
+            </app-form-validation-common>
+          </div>
+        </div>
+        <div class="col">
+          <div class="row">
+            <label for="summary">Summary</label>
+            <textarea class="form-control" placeholder="Enter Summary" id="summary" [(ngModel)]="story.summary"
+              formControlName="summary" rows="3"></textarea>
+            <app-form-validation-common *ngIf="angForm.controls['summary'].hasError('required')"
+              [displayError]="isFieldValid('summary')" errorMsg="*Please enter a summary for the story">
+            </app-form-validation-common>
+          </div>
+          <br />
+          <div class="row">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" placeholder="Enter Description" rows="3"
+              [(ngModel)]="story.description" name="description" formControlName="description"></textarea>
+            <app-form-validation-common [displayError]="isFieldValid('description')"
+              errorMsg="*Please enter a brief description "></app-form-validation-common>
+          </div>
+        </div>
+      </div>
+      <br />
+      <a class="submit1" (click)="cancel()">CANCEL</a>
+      <button class="submit" type="submit">CREATE</button>
+    </form>
+  </div>
+</nb-card>

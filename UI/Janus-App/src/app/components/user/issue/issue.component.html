@@ -1,0 +1,96 @@
+<div *ngIf="loaderService.isloading | async" class="loader">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar> 
+</div>
+
+<div class="head">
+  <h5>Issue</h5>
+</div>
+
+<!--create button-->
+<div class="head">
+  
+</div>
+
+<div class="head" style="float: right; margin-right: 3.4rem; margin-top: 4.5rem;">
+  <button class="createI" (click)="createIssue()"><img src="assets\plus.png" width="20" height="20"/></button>
+  <button class="createI" (click)="exportCsv()"><img src="assets\download.png" width="20" height="20"/></button>
+  <input class="form-control me-2" type="search" [(ngModel)]="filterTerm" (change)="onChange($event)"
+    placeholder="Search" aria-label="Search" />
+  <a><img id="search" src="assets\ICONS\search.png" /> </a>
+</div>
+
+<!-- <div class="sub-menu">
+  <div class="btn-group2">
+    <select>
+      <option>Status</option>
+      <option>In progress</option>
+      <option>Open</option>
+      <option>Complete</option>
+      <option>Overdue</option>
+    </select>
+  </div>
+
+  <div class="btn-group3">
+    <select>
+      <option>Created by</option>
+      <option>Tiron</option>
+      <option>Shehara</option>
+      <option>Ishma</option>
+    </select>
+  </div>
+</div> -->
+
+<div class="container1">
+  <table class="table table-striped table-hover" id="export-table">
+    <thead class="table-dark">
+      <tr>
+        <th>ID</th>
+        <th>STATUS</th>
+        <th>PRIORITY</th>
+        <th>SEVERITY</th>
+        <th>STORY POINTS</th>
+        <th>SUMMARY</th>
+        <th>ASSIGNEE</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="!isShowingIssueList">
+      <tr *ngFor="let issue of listPagination?.content" (click)="selectIssue($event, issue)"
+        [class.highlighted]="issue.identifier === currentIssue">
+        <td>{{ issue.identifier }}</td>
+        <td>{{ issue.status }}</td>
+        <td>{{ issue.priority }}</td>
+        <td>{{ issue.severity }}</td>
+        <td>{{ issue.storyPoint }}</td>
+        <td>{{issue.summary | slice:0:25}}...</td> 
+        <td>{{ issue.assignee?.fullName }}</td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="isShowingIssueList">
+      <tr *ngFor="
+          let issue of issueList | selectFilter: { summary: filterTerm };
+          let i = index
+        " (click)="selectIssue($event, issue)" [class.highlighted]="issue.identifier === currentIssue">
+        <td>{{ issue.identifier }}</td>
+        <td>{{ issue.status }}</td>
+        <td>{{ issue.priority }}</td>
+        <td>{{ issue.severity }}</td>
+        <td>{{ issue.storyPoint }}</td>
+        <td>{{issue.summary | slice:0:25}}...</td>
+        <td>{{ issue.assignee?.fullName }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="footer">
+  <div class="btn-group" role="group" style="margin-top: -5rem">
+    <button class="btn btn-dark" [disabled]="!canMoveToPreviousPage" (click)="moveToPreviousPage()">
+      Prev
+    </button>
+    <button class="btn btn-dark" disabled style="width: 100px">
+      {{ pageIndex + 1 }} / {{ this.listPagination?.totalPages }}
+    </button>
+    <button class="btn btn-dark" [disabled]="!canMoveToNextPage" (click)="moveToNextPage()">
+      Next
+    </button>
+  </div>
+</div>

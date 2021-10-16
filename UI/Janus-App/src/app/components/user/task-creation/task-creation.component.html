@@ -1,0 +1,133 @@
+<nb-card style="margin-left: 1rem;margin-right: 3.4rem;margin-top: 4.5rem;">
+  <div class="container1">
+    <div class="text">CREATE TASK</div>
+    <hr style="border-width: unset;border-color: #343a40; margin-top: 1rem;margin-bottom: 1rem;">
+    <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col" style="margin-right: 1rem">
+          <div class="row">
+            <label for="storyId">Story</label>
+            <select id="storyId" class="form-control" formControlName="story" [(ngModel)]="task.story"
+              (ngModelChange)="onChange($event)">
+              <option *ngFor="let s of storyList" [ngValue]="s.id">
+                {{ s.identifier }}
+              </option>
+            </select>
+            <app-form-validation-common *ngIf="taskForm.controls['story'].hasError('required')"
+              [displayError]="isFieldValid('story')" errorMsg="*Compulsory to assign a story">
+            </app-form-validation-common>
+          </div>
+          <br />
+          <div class="row">
+            <label for="assignee">Assignee</label>
+            <select id="assignee" class="form-control" formControlName="assignee" [(ngModel)]="task.assignee">
+              <option *ngFor="let user of userList" [ngValue]="user.id">
+                {{ user.fullName }} ({{ user.username }})
+              </option>
+            </select>
+            <app-form-validation-common [displayError]="isFieldValid('assignee')"
+              errorMsg="*Compulsory to assign a assignee">
+            </app-form-validation-common>
+          </div>
+          <br />
+          <div class="row">
+            <label>Start At</label>
+            <input  min="{{dateValidation(today)}}" type="date" class="form-control" placeholder="StartAt"
+              formControlName="completedAt" rows="3" [(ngModel)]="task.completedAt" />
+            <app-form-validation-common [displayError]="isFieldValid('completedAt')"
+              errorMsg="*Please provide a start date">
+            </app-form-validation-common>
+          </div>
+          <br />
+          <div class="row">
+            <label for="priority">Priority</label>
+            <select id="priority" name="priority" class="form-control" formControlName="priority"
+              [(ngModel)]="task.priority">
+              <option>HIGH</option>
+              <option>MEDIUM</option>
+              <option>LOW</option>
+            </select>
+            <app-form-validation-common [displayError]="isFieldValid('priority')"
+              errorMsg="*Please select the priority">
+            </app-form-validation-common>
+          </div>
+          <br />
+          <div class="row">
+            <label for="severity">Severity</label>
+            <select id="severity" formControlName="severity" class="form-control" [(ngModel)]="task.severity">
+              <option>HIGH</option>
+              <option>MEDIUM</option>
+              <option>LOW</option>
+            </select>
+            <app-form-validation-common *ngIf="taskForm.controls['severity'].hasError('required')"
+              [displayError]="isFieldValid('severity')" errorMsg="*Please select the severity of your task">
+            </app-form-validation-common>
+          </div>
+          <br />
+          <div class="row">
+            <label for="type">Type</label>
+            <select id="type" formControlName="type" class="form-control" [(ngModel)]="task.type">
+              <option>DEV</option>
+              <option>QA</option>
+              <option>REVIEW</option>
+              <option>REQUIREMENT</option>
+              <option>DEPLOYMENT</option>
+            </select>
+            <app-form-validation-common *ngIf="taskForm.controls['type'].hasError('required')"
+              [displayError]="isFieldValid('type')" errorMsg="*Please select a type">
+            </app-form-validation-common>
+          </div>
+        </div>
+        <div class="col">
+          <div class="row">
+            <label for="storypnts">Story points</label>
+            <select id="storypnts" formControlName="storyPoint" class="form-control" [(ngModel)]="task.storyPoint">
+              <option>1</option>
+              <option>3</option>
+              <option>5</option>
+              <option>8</option>
+              <option>13</option>
+              <option>20</option>
+              <option>40</option>
+              <option>100</option>
+            </select>
+            <app-form-validation-common *ngIf="taskForm.controls['storyPoint'].hasError('required')"
+              [displayError]="isFieldValid('storyPoint')" errorMsg="*Please select the amount of story points">
+            </app-form-validation-common>
+          </div>
+          <br />
+          <div class="row">
+            <label for="impactedArea">Impacted Area</label>
+            <textarea id="impactedArea" class="form-control" rows="3" formControlName="impactedArea"
+              placeholder="Impacted Area" [(ngModel)]="task.impactedArea" maxlength="255"></textarea>
+            <app-form-validation-common *ngIf="taskForm.controls['impactedArea'].hasError('required')"
+              [displayError]="isFieldValid('impactedArea')" errorMsg="*Please enter an impacted area">
+            </app-form-validation-common>
+          </div>
+          <br />
+          <div class="row">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" rows="3" formControlName="description"
+              placeholder="Description" [(ngModel)]="task.description" maxlength="255"></textarea>
+            <app-form-validation-common *ngIf="taskForm.controls['description'].hasError('required')"
+              [displayError]="isFieldValid('description')" errorMsg="*Please enter a brief description">
+            </app-form-validation-common>
+          </div>
+          <br />
+          <div class="row">
+            <label for="summary">Summary</label>
+            <textarea class="form-control" id="summary" formControlName="summary" [(ngModel)]="task.summary"
+              placeholder="Summary" rows="3" maxlength="255"></textarea>
+            <app-form-validation-common *ngIf="taskForm.controls['summary'].hasError('required')"
+              [displayError]="isFieldValid('summary')" errorMsg="*Please enter a summary of your description">
+            </app-form-validation-common>
+          </div>
+        </div>
+      </div>
+      <div>
+        <a class="submit1" (click)="cancel()">CANCEL</a>
+        <button class="submit" type="submit">CREATE</button>
+      </div>
+    </form>
+  </div>
+</nb-card>

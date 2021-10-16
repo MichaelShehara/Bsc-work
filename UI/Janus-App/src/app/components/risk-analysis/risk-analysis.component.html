@@ -1,0 +1,209 @@
+<div class="container"
+  style="margin-left: 15px; margin-top: -10px;width: auto; height: fit-content;background-color: rgb(216, 216, 216);">
+  <div class="head">
+    <h5>Risk analysis</h5>
+  </div>
+  <br>
+
+  <div class="card-deck" style="margin-bottom: -100px;">
+    <div class="card border-info mb-5" style="max-width: 30rem;">
+      <div class="card" style="background-color: rgb(140, 203, 255);">
+        <div class="card-body" style="text-align: center;">
+          <h4 class="card-title">Today:- {{date | date:'yyyy-MM-dd'}}</h4><br>
+          <h3 class="card-title">{{calculateDiff (data)}} day(s) more</h3>
+
+        </div>
+      </div>
+    </div>
+    <div class="card border-info mb-5" style="max-width: 30rem;">
+      <div class="card" style="background-color: rgb(255, 220, 140);">
+        <div class="card-body" style="text-align: center;">
+          <h4 class="card-title">Avg. story point completion rate (per day) </h4><br>
+          <h3 class="card-text">{{avgSt | number:'1.0-0'}}</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="card border-info mb-5" style="max-width: 30rem;">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Overalll status</h5><br>
+          <div class="row">
+            <div class="col-md-8">
+              <p class="card-text" style="font-size: large;" [ngStyle]="{'color':calculateRisk (data) === this.displaySuccess ? 'green' : calculateRisk (data) === this.displaymedium ? 'blue' : 
+            calculateRisk (data) === this.displaymediumSuccess ? 'orange' :'red' }">{{calculateRisk (data)}}</p>
+            </div>
+            <div class="col-md-3">
+              <img width="50" height="50" [src]="calculateRisk(data) === displaySuccess ? '/assets/ok.jpg': calculateRisk(data) === displaymedium ? '/assets/pace.png' : 
+                       calculateRisk(data) === displaymediumSuccess ? '/assets/pace.png' :'/assets/danger.png'">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="heading">
+      <h5>Sprint Summary</h5>
+    </div>
+    <div class="col-md-6">
+      <div class="card-col">
+        <nb-card size="small" style="margin-left: 1rem;padding: 1rem;margin-bottom: 0.5rem;margin-right: 5.4rem">
+          <canvas height="190" baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+            [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType" [colors]="barChartColors">
+          </canvas>
+        </nb-card>
+      </div>
+    </div>
+
+
+    <div class="col-md-3" style="padding: 0;">
+      <div class="card-col">
+        <nb-card class="stdt">
+          <div class="container3">
+            <div class="row">
+              <div class="col-md-4">
+                <img src="assets/ICONS/calendar.png" width="50" height="50" />
+              </div>
+              <div class="col-md-8">
+                <label class="topic">Start date </label><br>
+                <label class="Value"><strong>{{ activeSprintDetails[0]?.startAt }}</strong></label>
+              </div>
+            </div>
+          </div>
+        </nb-card>
+        <nb-card class="eddt">
+          <div class="container3">
+            <div class="row">
+              <div class="col-md-4">
+                <img src="assets/ICONS/calendar.png" width="50" height="50" />
+              </div>
+              <div class="col-md-8">
+                <label class="topic">End Date</label><br>
+                <label class="Value"><strong>{{ activeSprintDetails[0]?.endAt }}</strong></label>
+              </div>
+            </div>
+          </div>
+        </nb-card>
+        <nb-card class="eddt">
+          <div class="container3">
+            <div class="row">
+              <div class="col-md-4">
+                <img src="assets/ICONS/list.png" width="50" height="50" />
+              </div>
+              <div class="col-md-8">
+                <label class="topic">Sprint name</label><br>
+                <label class="Value"><strong>{{ activeSprintDetails[0]?.name }}</strong></label>
+              </div>
+            </div>
+          </div>
+        </nb-card>
+      </div>
+    </div>
+
+
+
+
+    <div class="col-md-3" style="padding: 0;">
+      <div class="card-col">
+        <nb-card class="totaltasks">
+          <div class="container3">
+            <div class="row">
+              <div class="col-md-4">
+                <img src="assets/ICONS/briefcase.png" width="50" height="50" />
+              </div>
+              <div class="col-md-8">
+                <label class="topic">Total Tasks</label><br>
+                <label class="Value"><strong>{{ totalTasks }}</strong></label>
+              </div>
+            </div>
+          </div>
+        </nb-card>
+        <nb-card class="totaltasks">
+          <div class="container3">
+            <div class="row">
+              <div class="col-md-4">
+                <img src="assets/ICONS/virus.png" width="50" height="50" />
+              </div>
+              <div class="col-md-8">
+                <label class="topic">Total Issues</label><br>
+                <label class="Value"><strong>{{ totalIssues }}</strong></label>
+              </div>
+            </div>
+          </div>
+        </nb-card>
+        <nb-card class="totaltasks">
+          <div class="container3">
+            <div class="row">
+              <div class="col-md-4">
+                <img src="assets/ICONS/suitcase.png" width="50" height="50" />
+              </div>
+              <div class="col-md-8">
+                <label class="topic">Total Story points</label><br>
+                <label class="Value"><strong>{{ total }}</strong></label>
+              </div>
+            </div>
+          </div>
+        </nb-card>
+      </div>
+    </div>
+
+    <br>
+    <br>
+    <div class="row">
+ 
+      <div class="col-md-6">
+        <h5 style="margin: 20px;">Task summary</h5>
+        <div class="card-col">
+          <nb-card size="small" style="margin-left: 1rem;padding: 1rem;margin-bottom: 0.5rem;margin-right: 5.4rem">
+            <canvas height="190" baseChart [datasets]="donutChart1Data" [labels]="donutChart1Labels"
+              [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="donutChart1Type"
+              [colors]="donutChart2Colors">
+            </canvas>
+          </nb-card>
+        </div>
+      </div>
+
+
+      <div class="col-md-6">
+        <h5 style="margin: 20px;"> Issue summary</h5>
+        <div class="card-col">
+          <nb-card size="small" style="margin-left: 1rem;padding: 1rem;margin-bottom: 0.5rem;margin-right: 5.4rem">
+            <canvas height="190" baseChart [datasets]="donutChart2Data" [labels]="donutChart2Labels"
+              [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="donutChart2Type"
+              [colors]="donutChart2Colors">
+            </canvas>
+          </nb-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <div class="card-row">
+    <div class="card-col">
+      <nb-card size="tiny" style="margin-left: 1rem;margin-right: 3.4rem;">
+        <div class="container">
+          <table class="table table-striped table-hover">
+            <thead class="table-dark">
+              <tr>
+                <th>ID</th>
+                <th>SPRINT NAME</th>
+                <th>STATUS</th>
+                <th>GOALS</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{ activeSprintDetails?.id }}</td>
+                <td>{{ activeSprintDetails?.name }} </td>
+                <td>{{ activeSprintDetails?.status }}</td>
+                <td>{{ activeSprintDetails?.goals }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </nb-card>
+    </div>
+  </div> 
+   -->

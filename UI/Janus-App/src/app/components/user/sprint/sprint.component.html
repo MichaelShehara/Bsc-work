@@ -1,0 +1,68 @@
+
+<div *ngIf="loaderService.isloading | async" class="loader">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar> 
+</div>
+
+<div class="head">
+  <h5>Sprint</h5>
+</div>
+
+
+<div class="head" style="float: right; margin-right: 3.4rem; margin-top: 4.5rem;">
+  <button class="createI" *ngIf="isProjectManager" (click)="createSprint()"><img src="assets\plus.png" width="20" height="20"/></button>
+    <input class="form-control me-2" type="search" [(ngModel)]="filterTerm" (change)="onChange($event)"
+      placeholder="Search" aria-label="Search">
+    <a><img id="search" src="assets\ICONS\search.png"> </a>
+</div>
+
+
+<div class="container1">
+  <table class="table table-striped table-hover">
+    <thead class="table-dark">
+      <tr>
+        <th>NAME</th>
+        <th>STATUS</th>
+        <th>STARTED DATE</th>
+        <th>END DATE</th>
+        <th>CREATED BY</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="!isShowingSprintList">
+      <tr *ngFor="let sprint of listPagination?.content" (click)="selectSprint($event, sprint)"
+        [class.highlighted]="sprint.name === currentSprint">
+        <td>{{ sprint.name }}</td>
+        <td>
+          <div class="inprogrss">{{ sprint.status }}</div>
+        </td>
+        <td>{{ sprint.startAt }}</td>
+        <td>{{ sprint.endAt }}</td>
+        <td>{{ sprint.createdBy?.fullName }}</td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="isShowingSprintList">
+      <tr *ngFor="let sprint of sprintList | selectFilter: {name: filterTerm}; let i=index;"
+        (click)="selectSprint($event, sprint)" [class.highlighted]="sprint.name === currentSprint">
+        <td>{{ sprint.name }}</td>
+        <td>
+          <div class="inprogrss">{{ sprint.status }}</div>
+        </td>
+        <td>{{ sprint.startAt }}</td>
+        <td>{{ sprint.endAt }}</td>
+        <td>{{ sprint.createdBy?.fullName }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="footer">
+  <div class="btn-group" role="group" style="margin-top: -5rem;">
+    <button class="btn btn-dark" [disabled]="!canMoveToPreviousPage" (click)="moveToPreviousPage()">
+      Prev
+    </button>
+    <button class="btn btn-dark" disabled style="width: 100px">
+      {{ pageIndex + 1 }} / {{ this.listPagination?.totalPages }}
+    </button>
+    <button class="btn btn-dark" [disabled]="!canMoveToNextPage" (click)="moveToNextPage()">
+      Next
+    </button>
+  </div>
+</div>

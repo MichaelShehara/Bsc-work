@@ -1,0 +1,63 @@
+
+
+<div class="heading">
+  <h5>Profile details</h5>
+</div>
+
+<div class="row">
+  <div class="col-md-3" style="margin-left: 1rem; height: 700px;">
+    <nb-card size="medium" style="height: 500px;">
+      <div class="container1">
+        <h5>Profile</h5>
+        <hr style="border-width: unset;border-color: #343a40; margin-top: 1rem;margin-bottom: 3rem;">
+        <div class="row">
+          <div class="col-md-12">
+            <img for="fileInput" [src]="url ? url : 'assets/avatar.png'" width="200" height="200" /><br />
+            <label class="custom-file-upload">
+              <!-- <input id="fileInput" type="file" (change)="onSelectFile($event)" /> -->
+              {{profile?.fullName}}
+            </label>
+          </div>
+        </div>
+      </div>
+    </nb-card>
+  </div>
+  <div class="col-md-8" style="margin-left: 1rem;">
+    <nb-card size="medium" style="height: 500px;">
+      <div class="container">
+        <h5>Personal Information</h5>
+        <hr style="border-width: unset;border-color: #343a40; margin-top: 1rem;margin-bottom: 2rem;">
+        <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+          <label class="name">Role</label>
+          <a class="roleBox" *ngFor="let r of this.profile?.roles">{{ r.description }}</a>
+          <br /><br /><br />
+          <div class="row">
+            <label for="email" class="name">Username</label>
+            <input type="email" id="email" maxlength="30" placeholder="username@gmail.com" class="form-control"
+              formControlName="username" [ngClass]="{
+          'is-invalid': submitted && formGroup.get('username').errors
+        }" [(ngModel)]="profile.username" readonly />
+          </div>
+          <br /><br />
+          <div class="row">
+            <label for="fullname" class="name"> Full name</label>
+            <input id="fullName" type="text" maxlength="255" placeholder="Full Name" class="form-control"
+              formControlName="fullName" [(ngModel)]="profile.fullName" />
+            <app-form-validation-common *ngIf="formGroup.controls['fullName'].hasError('required')"
+              [displayError]="isFieldValid('fullName')" errorMsg="Please enter your full name">
+            </app-form-validation-common>
+          </div>
+          <br />
+
+          <a class="change1" routerLink="/profile/update-password">CHANGE PASSWORD</a>
+          <button class="change" type="submit">UPDATE</button><br /><br /><br />
+
+          <h6>PROJECT ASSIGNED</h6>
+          <br>
+          <a routerLink="/project-user/{{p.id}}" class="project" *ngFor="let p of this.profile?.projects">{{ p.name
+            }}</a>
+        </form>
+      </div>
+    </nb-card>
+  </div>
+</div>

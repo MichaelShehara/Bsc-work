@@ -1,0 +1,132 @@
+<!-- <div class="topbar" *ngIf="router.url !== '/login'" ng-onload="loadProjects()"> -->
+<nav class="navbar sticky-top fixed-top navbar-expand-md navbar-dark navbar-dark bg-dark">
+  <a class="nav-link active" id="Janus" aria-current="page">TASKCHECK</a>
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsingNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="navbar-collapse collapse" id="collapsingNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-link" *ngIf="isDisabledProject">
+        <p>No New Projects</p>
+      </li>
+      <li class="nav-item dropdown" *ngIf="!isDisabledProject">
+        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+          aria-expanded="false"> Project: &nbsp; 
+          {{ selectedProjectName }}
+        </a>
+        <div class="dropdown-menu"  aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" *ngFor="let p of projects" (click)="onChange($event, p.id, p.name)">
+            {{ p.name }}
+          </a>
+        </div>
+      </li>
+      <label id="sprint" *ngIf="noActiveSprint">No Active Sprint</label>
+      <label id="sprint" *ngIf="isShowingSpritList"> Sprint: &nbsp; {{ selectedSprintName }}</label>
+     
+      <!-- <li class="nav-item dropdown" *ngIf="isShowingSpritList">
+        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+          aria-expanded="false">
+          {{ selectedSprintName }}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" *ngFor="let sprint of sprintList" (click)="onSprintChange($event, sprint.id, sprint.name)">
+            {{ sprint.name }}
+          </a>
+        </div>
+      </li> -->
+      <!-- <button class="submit" style="margin-left: 1rem;" data-bs-toggle="modal" data-bs-target="#headerPopup">Create</button>
+      <div class="modal fade" data-bs-backdrop="false" id="headerPopup" tabindex="-1" aria-labelledby="headerPopupLabel"
+      aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Issue</h5>
+              <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Project</label>
+                <select class="form-control" aria-label="Default select example">
+                  <option selected>Open this select menu</option>
+                  <option value="1">Janus</option>
+                  <option value="2">Pigeon</option>
+                  <option value="3">Hipercare</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Issue Type</label>
+                <select class="form-control" aria-label="Default select example">
+                  <option selected>Open this select menu</option>
+                  <option value="1">Task</option>
+                  <option value="2">Epic</option>
+                  <option value="3">Story</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Summary</label>
+                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Type here..." />
+              </div>
+              <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Descrption</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Assignee</label>
+                <select class="form-control" aria-label="Default select example">
+                  <option selected>Open this select menu</option>
+                  <option value="1">Shehara</option>
+                  <option value="2">MIlinda</option>
+                  <option value="3">Nilanka</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Sprint</label>
+                <select class="form-control" aria-label="Default select example">
+                  <option selected>Open this select menu</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                </select>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                Close
+              </button>
+              <button type="button" class="btn btn-primary">
+                Save changes
+              </button>
+            </div>
+          </div>
+        </div>
+      </div> -->
+     
+    </ul>
+    
+      
+  
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown userIcon">
+          <p style="color: white;" id="welcome" >Welcome to TaskCheck {{currentUser.fullName}}!!!</p>
+        </li>
+
+      <li class="nav-item dropdown userIcon">
+        <a role="button" id="navbarDropdown" data-bs-toggle="dropdown"><img id="setting"
+            src="assets\unnamed.png" /></a>
+        <div aria-labelledby="navbarDropdown" class="dropdown-menu dropdown-menu-right">
+          <a class="dropdown-item" [routerLink]="['/profile']">Profile</a>
+          <a class="dropdown-item" (click)="logout()">Sign Out</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown userIcon" *ngIf="isAdmin">
+        <a role="button" id="navbarDropdown" data-bs-toggle="dropdown"><img id="setting" src="assets/settings.png" /></a>
+        <div aria-labelledby="navbarDropdown" class="dropdown-menu dropdown-menu-right">
+          <a class="dropdown-item" [routerLink]="['/user-list']">Users</a>
+          <a class="dropdown-item" [routerLink]="['/register']">Register User</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>

@@ -1,0 +1,72 @@
+<nb-card style="margin-left: 1rem;margin-right: 3.4rem;margin-top: 4.5rem;">
+  <div class="container1">
+    <div class="text">CREATE PROJECT</div>
+    <hr style="border-width: unset;border-color: #343a40; margin-top: 1rem;margin-bottom: 1rem;">
+    <form [formGroup]="angForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col">
+          <div class="row">
+            <label for="Name">Project</label>
+            <input type="text" id="Name" class="form-control" placeholder="Name" formControlName="name"
+              [(ngModel)]="project.name" maxlength="30"/>
+            <app-form-validation-common *ngIf="angForm.controls['name'].hasError('required')"
+              [displayError]="isFieldValid('name')" errorMsg="Please Do assign a name for the project">
+            </app-form-validation-common>
+          </div>
+          <br />
+          <div class="row">
+            <label for="Code">Code</label>
+            <input type="text" id="Code" class="form-control" placeholder="Code" formControlName="code"
+              [(ngModel)]="project.code" (ngModelChange)="project.code = $event.toUpperCase()" maxlength="4" />
+
+            <app-form-validation-common *ngIf="angForm.controls['code'].hasError('required')"
+              [displayError]="isFieldValid('code')" errorMsg="Set a code COMPULSORY!!"></app-form-validation-common>
+            <app-form-validation-common *ngIf="angForm.controls['code'].hasError('maxlength')"
+              [displayError]="isFieldValid('code')" errorMsg="Assign maximum of 4 chractors">
+            </app-form-validation-common>
+            <app-form-validation-common *ngIf="angForm.controls['code'].hasError('minlength')"
+              [displayError]="isFieldValid('code')" errorMsg="Assign minimum of 2 chractors">
+            </app-form-validation-common>
+            <app-form-validation-common *ngIf="angForm.controls['code'].hasError('pattern')"
+              [displayError]="isFieldValid('code')" errorMsg="Alphabets only can be used"></app-form-validation-common>
+          </div>
+          <br />
+          <div class="row">
+            <label for="workWeek">Work Week</label>
+            <select id="workWeek" name="workWeek" class="form-control" formControlName="workWeek"
+              [(ngModel)]="project.workWeek">
+              <option>WEEK_DAYS</option>
+              <option>SEVEN_DAYS</option>
+            </select>
+            <app-form-validation-common [displayError]="isFieldValid('workWeek')" errorMsg="Compulsory to set a workWeek">
+            </app-form-validation-common>
+          </div>
+          <br />
+          <div class="row">
+            <label for="LeaderName" id="leaderName">Project Leader</label>
+            <select id="LeaderName" class="form-control" formControlName="leaderName" [(ngModel)]="project.leaderName">
+              <option *ngFor="let p of user" [ngValue]="p.fullName">
+                {{ p.fullName }} ({{ p.username }})
+              </option>
+            </select>
+            <app-form-validation-common [displayError]="isFieldValid('leaderName')"
+              errorMsg="*Compulsory to assign a leader">
+            </app-form-validation-common>
+          </div>
+          <br />
+          <div class="row">
+            <label for="AssignProject">Assigned Users</label>
+            <ng-multiselect-dropdown id="AssignProject" class="form-control" formControlName="assignProject"
+              [placeholder]="'Select Here'" [data]="user" [(ngModel)]="groupBySelectedItems"
+              [settings]="usersDropdownSettings" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"
+              (onDeSelect)="onDeSelectItem($event)">
+            </ng-multiselect-dropdown>
+          </div>
+        </div>
+      </div>
+      <br />
+      <a class="submit1" (click)="reset()">CANCEL</a>
+      <button class="submit" type="submit">CREATE</button>
+    </form>
+  </div>
+</nb-card>

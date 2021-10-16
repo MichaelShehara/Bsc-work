@@ -1,0 +1,140 @@
+<nb-card style="margin-left: 1rem;margin-right: 3.4rem;margin-top: 4.5rem;">
+  <div class="container1">
+    <div class="text">CREATE ISSUE</div>
+    <hr style="border-width: unset;border-color: #343a40; margin-top: 1rem;margin-bottom: 1rem;">
+    <form [formGroup]="issueForm">
+      <div class="row">
+        <div class="col" style="margin-right: 1rem">
+          <div class="row">
+            <label for="Priority">Priority</label>
+            <select id="Priority" name="priority" class="form-control" formControlName="priority"
+              [(ngModel)]="issue.priority">
+              <option>HIGH</option>
+              <option>MEDIUM</option>
+              <option>LOW</option>
+            </select>
+            <app-form-validation-common [displayError]="isFieldValid('assignee')"
+              errorMsg="*Compulsory to assign someone"></app-form-validation-common>
+          </div>
+          <br />
+          <div class="row">
+            <label for="Severity">Severity</label>
+            <select id="Severity" name="severity" class="form-control" formControlName="severity"
+              [(ngModel)]="issue.severity">
+              <option>HIGH</option>
+              <option>MEDIUM</option>
+              <option>LOW</option>
+            </select>
+            <app-form-validation-common [displayError]="isFieldValid('severity')"
+              errorMsg="*Please select the severity ">
+            </app-form-validation-common>
+          </div>
+          <br />
+          <!-- <div class="row">
+            <label for="Status">STATUS</label>
+            <select id="Status" name="status" class="form-control" formControlName="status" [(ngModel)]="issue.status">
+              <option>OPEN</option>
+              <option>IN_PROGRESS</option>
+              <option>REOPENED</option>
+              <option>RESOLVED</option>
+              <option>CLOSED</option>
+              <option>NOT_A_DEFECT</option>
+              <option>AS_DESIGNED</option>
+            </select>
+            <app-form-validation-common [displayError]="isFieldValid('status')"
+              errorMsg="*Compulsory to select current status"></app-form-validation-common>
+          </div>
+          <br /> -->
+          <div class="row">
+            <label for="Assignee">Reported By</label>
+            <select id="Assignee" class="form-control" formControlName="assignee" [(ngModel)]="issue.assignee">
+              <option *ngFor="let p of user" [ngValue]="p">
+                {{ p.fullName }} ({{ p.username }})
+              </option>
+            </select>
+            <app-form-validation-common [displayError]="isFieldValid('assignee')"
+              errorMsg="*Compulsory to assign someone"></app-form-validation-common>
+          </div>
+          <br />
+          <div class="row">
+            <label for="fixVersion">Fix Version</label>
+            <select id="fixVersion" class="form-control" formControlName="fixVersion" [(ngModel)]="issue.fixVersion">
+              <option *ngFor="let r of projectRelease" [ngValue]="r">
+                {{ r.name }}
+              </option>
+            </select>
+            <app-form-validation-common [displayError]="isFieldValid('assignee')"
+              errorMsg="*Compulsory to assign someone"></app-form-validation-common>
+          </div>
+          <br />
+          <div class="row">
+            <label for="affectVersion">Affected Version</label>
+            <select id="affectVersion" class="form-control" formControlName="affectVersion"
+              [(ngModel)]="issue.affectVersion">
+              <option *ngFor="let r of projectRelease" [ngValue]="r">
+                {{ r.name }}
+              </option>
+            </select>
+            <app-form-validation-common [displayError]="isFieldValid('assignee')"
+              errorMsg="*Compulsory to assign someone"></app-form-validation-common>
+          </div>
+          <br />
+          <div class="row">
+            <label for="storypnts">Story Points</label>
+            <select id="storypnts" formControlName="storyPoint" class="form-control" [(ngModel)]="issue.storyPoint">
+              <option>1</option>
+              <option>3</option>
+              <option>5</option>
+              <option>8</option>
+              <option>13</option>
+              <option>20</option>
+              <option>40</option>
+              <option>100</option>
+            </select>
+            <app-form-validation-common [displayError]="isFieldValid('storyPoint')"
+              errorMsg="*Please select the amount of story points">
+            </app-form-validation-common>
+          </div>
+        </div>
+        <div class="col">
+          <div class="row">
+            <label for="impactedArea">Impacted Area</label>
+            <textarea class="form-control" id="impactedArea" placeholder="Additional Information"
+              formControlName="impactedArea" [(ngModel)]="issue.impactedArea" rows="3"></textarea>
+              <app-form-validation-common [displayError]="isFieldValid('impactedArea')"
+              errorMsg="*Please enter the imapacted area">
+            </app-form-validation-common>
+          </div>
+          <br />
+          <div class="row">
+            <label for="Description">Description</label>
+            <textarea class="form-control" id="Description" placeholder="Description" formControlName="description"
+              [(ngModel)]="issue.description" rows="3" maxlength="255"></textarea>
+            <app-form-validation-common [displayError]="isFieldValid('description')"
+              errorMsg="*Please enter a brief description"></app-form-validation-common>
+          </div>
+          <br />
+          <div class="row">
+            <label for="Summary">Summary</label>
+            <textarea class="form-control" id="Summary" placeholder="Summary" formControlName="summary"
+              [(ngModel)]="issue.summary" rows="3" maxlength="255"></textarea>
+            <app-form-validation-common [displayError]="isFieldValid('summary')" errorMsg="*Please enter a sumary">
+            </app-form-validation-common>
+          </div>
+          <br />
+          <div class="row">
+            <label for="Comment">Comment</label>
+            <textarea class="form-control" id="Comment" placeholder="Comment" formControlName="comment"
+              [(ngModel)]="issue.comment" rows="3" maxlength="255"></textarea>
+              <app-form-validation-common [displayError]="isFieldValid('comment')"
+              errorMsg="*Please enter a comment">
+            </app-form-validation-common>
+          </div>
+        </div>
+      </div>
+      <br />
+      <a class="submit1" (click)="reset()">CANCEL</a>
+      <button class="submit" (click)="onSubmit()">CREATE</button>
+    </form>
+  </div>
+</nb-card>

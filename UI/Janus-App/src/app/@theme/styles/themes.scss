@@ -1,0 +1,12 @@
+@import '~@nebular/theme/styles/theming';
+@import '~@nebular/theme/styles/themes/default';
+
+.nb-theme-default
+  nb-layout
+  .layout
+  .layout-container
+  .content
+  .columns
+  nb-layout-column {
+  padding: 0;
+}

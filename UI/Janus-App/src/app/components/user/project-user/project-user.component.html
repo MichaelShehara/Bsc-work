@@ -1,0 +1,62 @@
+<nb-card style="margin-left: 1rem;margin-right: 3.4rem;margin-top: 4.5rem;">
+  <div class="container1">
+    <div class="text">PROJECT INFORMATION</div>
+    <hr style="border-width: unset;border-color: #343a40; margin-top: 1rem;margin-bottom: 1rem;">
+    <form>
+      <div class="row">
+        <div class="col" style="margin-right: 1rem">
+          <div class="row">
+            <label for="Name">Project</label>
+            <input type="text" id="Name" class="form-control" [value]="project?.name" readonly />
+          </div>
+          <br />
+          <div class="row">
+            <label for="Code">Code</label>
+            <input type="text" id="Code" class="form-control" [value]="project?.code" readonly />
+          </div>
+          <br />
+          <div class="row">
+            <label for="Status">Status</label>
+            <input id="Status" name="status" class="form-control" [value]="project?.status" readonly />
+          </div>
+          <br />
+          <div class="row">
+            <label for="workWeek">Work Week</label>
+            <input id="workWeek" name="workWeek" class="form-control" [value]="project?.workWeek" readonly />
+          </div>
+          <br />
+          <div class="row">
+            <label for="LeaderName" id="leaderName">Project Leader</label>
+            <input type="text" id="LeaderName" class="form-control" [value]="project?.leaderName" readonly />
+          </div>
+          <br />
+          <div class="row">
+            <label for="AssignProject">Assign Users</label>
+            <a class="project" id="AssignProject" *ngFor="let p of project?.users">{{ p.fullName }}</a>
+          </div>
+        </div>
+        <div class="col">
+          <div class="row">
+            <label for="releaseName">Release Name</label>
+            <input type="text" id="releaseName" class="form-control"
+              [value]="projectRelease?.name ? projectRelease?.name : ' '" readonly />
+          </div>
+          <br />
+          <div class="row">
+            <label for="releaseDescription">Description</label>
+            <textarea type="text" rows="3" id="releaseDescription" class="form-control"
+              [value]="projectRelease?.description ? projectRelease?.description : ' '" readonly></textarea>
+          </div>
+          <br />
+          <div class="row">
+            <label for="target_date">Target Date</label>
+            <input id="target_date" class="form-control" type="date"
+              [value]="projectRelease?.targetDate ? projectRelease?.targetDate : ' '" readonly />
+          </div>
+        </div>
+      </div>
+    </form>
+    <br>
+    <button class="submit" (click)="close()">CLOSE</button>
+  </div>
+</nb-card>

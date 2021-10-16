@@ -1,0 +1,47 @@
+<nb-card style="margin-left: 1rem;margin-right: 3.4rem;margin-top: 4.5rem;">
+  <div class="container1">
+    <div class="text">CREATE SPRINT</div>
+    <hr style="border-width: unset;border-color: #343a40; margin-top: 1rem;margin-bottom: 1rem;">
+    <form [formGroup]="sprintForm">
+      <div class="row">
+        <label for="name">Name</label>
+        <input id="name" class="form-control" type="text" placeholder="Enter Sprint Name" formControlName="name"
+          [(ngModel)]="sprint.name" maxlength="30">
+        <app-form-validation-common *ngIf="sprintForm.controls['name'].hasError('required')"
+          [displayError]="isFieldValid('name')" errorMsg="*Please assign a name for the Sprint">
+        </app-form-validation-common>
+      </div>
+      <br />
+      <div class="row">
+        <label>Start Date</label>
+        <input  min="{{dateValidation(today)}}" class="form-control"  type="date" formControlName="st_date"
+          [(ngModel)]="sprint.startAt">
+        <app-form-validation-common *ngIf="sprintForm.controls['st_date'].hasError('required')"
+          [displayError]="isFieldValid('st_date')" errorMsg="*Please select a starting date">
+        </app-form-validation-common>
+      </div>
+      <br />
+      <div class="row">
+        <label>End Date</label>
+        <input  min="{{dateValidation(today)}}" class="form-control" type="date" class="form-control" formControlName="e_date"
+          [(ngModel)]="sprint.endAt">
+        <app-form-validation-common *ngIf="sprintForm.controls['e_date'].hasError('required')"
+          [displayError]="isFieldValid('e_date')" errorMsg="*Please select an ending date">
+        </app-form-validation-common>
+      </div>
+      <br />
+      <div class="row">
+        <label for="goal">Goals</label>
+        <textarea id="goal" class="form-control" placeholder="Goals" rows="3" formControlName="goal"
+          [(ngModel)]="sprint.goals" maxlength="255"></textarea>
+        <app-form-validation-common *ngIf="sprintForm.controls['goal'].hasError('required')"
+          [displayError]="isFieldValid('goal')" errorMsg="*Please write a description of the goals">
+        </app-form-validation-common>
+      </div>
+      <br />
+      <a class="submit1" (click)="cancel()">CANCEL</a>
+      <button class="submit" (click)="onSubmit()">CREATE</button>
+    </form>
+  </div>
+
+</nb-card>

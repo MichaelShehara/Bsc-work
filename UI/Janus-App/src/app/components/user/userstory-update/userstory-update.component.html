@@ -1,0 +1,78 @@
+<nb-card style="margin-left: 1rem;margin-right: 3.4rem;margin-top: 4.5rem;">
+  <div class="container1">
+    <a href="/user-stories">
+      <img style="margin-top: 1.5rem;" src="assets/backBtn.png" width="40" height="40" />
+    </a>
+    <div class="text">UPDATE USER STORY</div>
+    <hr style="border-width: unset;border-color: #343a40; margin-top: 1rem;margin-bottom: 1rem;">
+    <form [formGroup]="angForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col" style="margin-right: 1rem">
+          <div class="row">
+            <label for="LeaderName">Assignee</label>
+            <select [(ngModel)]="story.assignee" class="form-control" formControlName="assignee" id="assignee"
+              (ngModelChange)="onAssigneeChange($event)">
+              <option *ngFor="let u of user" [ngValue]="u.id">
+                {{ u.fullName }} ({{ u.username }})
+              </option>
+              <app-form-validation-common [displayError]="isFieldValid('assignee')"
+                errorMsg="*Compulsory to assign someone"></app-form-validation-common>
+            </select>
+          </div>
+          <br />
+          <div class="row">
+            <label for="Priority">Priority</label>
+            <select id="Priority" name="priority" class="form-control" formControlName="priority"
+              [(ngModel)]="story.priority">
+              <option>HIGH</option>
+              <option>LOW</option>
+              <option>MEDIUM</option>
+            </select>
+          </div>
+          <br />
+          <div class="row">
+            <label for="type">Type</label>
+            <select id="type" name="type" class="form-control" formControlName="type" [(ngModel)]="story.type">
+              <option>USER_STORY</option>
+              <option>TECHNICAL_STORY</option>
+            </select>
+            <app-form-validation-common [displayError]="isFieldValid('type')" errorMsg="*Please select a type">
+            </app-form-validation-common>
+          </div>
+          <br />
+          <div class="row">
+            <label for="status">Status</label>
+            <select id="status" class="form-control" formControlName="status" [(ngModel)]="story.status">
+              <option>OPEN</option>
+              <option>CLOSED</option>
+              <option>CANCELLED</option>
+            </select>
+            <app-form-validation-common *ngIf="angForm.controls['status'].hasError('required')"
+              [displayError]="isFieldValid('status')" errorMsg="*Please select the status of your story">
+            </app-form-validation-common>
+          </div>
+        </div>
+        <div class="col">
+          <div class="row">
+            <label for="summary">Summary</label>
+            <textarea id="summary" class="form-control" placeholder="Enter Summary" [(ngModel)]="story.summary"
+              formControlName="summary" rows="3"></textarea>
+            <app-form-validation-common *ngIf="angForm.controls['summary'].hasError('required')"
+              [displayError]="isFieldValid('summary')" errorMsg="Please Do assign a summary for the story">
+            </app-form-validation-common>
+          </div>
+          <br />
+          <div class="row">
+            <label for="description">Description</label>
+            <textarea id="description" class="form-control" placeholder="Enter Description" rows="3"
+              [(ngModel)]="story.description" name="description" formControlName="description"></textarea>
+          </div>
+        </div>
+      </div>
+      <br />
+      <br />
+      <button class="submit1" (click)="delete()">DELETE</button>
+      <button class="submit" type="submit">UPDATE</button>
+    </form>
+  </div>
+</nb-card>

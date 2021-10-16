@@ -1,0 +1,284 @@
+<nb-card style="margin-left: 1rem;margin-right: 3.4rem;margin-top: 4.5rem;">
+  <div class="container1">
+    <a href="/task">
+      <img style="margin-top: 1.5rem;" src="assets/backBtn.png" width="40" height="40">
+    </a>
+    <div class="text">UPDATE TASK</div>
+    <hr style="border-width: unset;border-color: #343a40; margin-top: 1rem;margin-bottom: 1rem;">
+    <form [formGroup]="taskForms">
+      <div class="row">
+        <div class="col" style="margin-right: 1rem">
+          <div class="row">
+            <label for="Assignee">Assignee</label>
+            <select id="Assignee" class="form-control" formControlName="assignee" [(ngModel)]="task.assignee"
+              (ngModelChange)="onAssigneeChange($event)">
+              <option *ngFor="let assign of userList" [ngValue]="assign.id">
+                {{ assign.fullName }} ({{ assign.username }})
+              </option>
+            </select>
+            <!-- <app-form-validation-common [displayError]="isFieldValid('assignee')"
+                errorMsg="*Compulsory to assign someone">
+              </app-form-validation-common> -->
+          </div>
+          <br />
+          <!-- new status -->
+          <div class="row">
+            <label for="status">STATUS</label>
+            <input id="status" class="status" type="button" formControlName="status" [(ngModel)]="task.status" />
+          </div>
+          <!-- previous status -->
+          <!-- <div class="row">
+              <label for="status">Status</label>
+              <select id="status" class="form-control" formControlName="status" [(ngModel)]="task.status">
+                <option>OPEN</option>
+                <option>IN_PROGRESS</option>
+                <option>COMPLETED</option>
+              </select>
+              <app-form-validation-common *ngIf="taskForms.controls['status'].hasError('required')"
+                [displayError]="isFieldValid('status')" errorMsg="*Please select the status of your task">
+              </app-form-validation-common>
+            </div> -->
+          <br />
+          <div class="row">
+            <label for="completedAt">Start At</label>
+            <input id="completedAt" matInput [min]="minDate" type="date" class="form-control"
+              formControlName="completedAt" [(ngModel)]="task.completedAt">
+            <app-form-validation-common [displayError]="isFieldValid('completedAt')"
+              errorMsg="*Please provide a start date">
+            </app-form-validation-common>
+          </div>
+          <br />
+          <div class="row">
+            <label for="priority">Priority</label>
+            <select id="priority" class="form-control" formControlName="priority" [(ngModel)]="task.priority">
+              <option>HIGH</option>
+              <option>MEDIUM</option>
+              <option>LOW</option>
+            </select>
+            <app-form-validation-common *ngIf="taskForms.controls['priority'].hasError('required')"
+              [displayError]="isFieldValid('priority')" errorMsg="*Please select the priority of your task">
+            </app-form-validation-common>
+          </div>
+          <br />
+          <div class="row">
+            <label for="severity">Severity</label>
+            <select id="severity" class="form-control" formControlName="severity" [(ngModel)]="task.severity">
+              <option>HIGH</option>
+              <option>MEDIUM</option>
+              <option>LOW</option>
+            </select>
+            <app-form-validation-common *ngIf="taskForms.controls['severity'].hasError('required')"
+              [displayError]="isFieldValid('severity')" errorMsg="*Please select the severity of your task">
+            </app-form-validation-common>
+          </div>
+          <br />
+          <div class="row">
+            <label class="type">Type</label>
+            <select id="type" class="form-control" formControlName="type" [(ngModel)]="task.type">
+              <option>DEV</option>
+              <option>QA</option>
+              <option>REVIEW</option>
+              <option>REQUIREMENT</option>
+              <option>DEPLOYMENT</option>
+            </select>
+            <app-form-validation-common *ngIf="taskForms.controls['type'].hasError('required')"
+              [displayError]="isFieldValid('type')" errorMsg="*Please select a type">
+            </app-form-validation-common>
+          </div>
+        </div>
+        <div class="col">
+          <div class="row">
+            <label for="storyPoint">Story points</label>
+            <select id="storyPoint" class="form-control" formControlName="storyPoint" [(ngModel)]="task.storyPoint">
+              <option>1</option>
+              <option>3</option>
+              <option>5</option>
+              <option>8</option>
+              <option>13</option>
+              <option>20</option>
+              <option>40</option>
+              <option>100</option>
+            </select>
+            <app-form-validation-common *ngIf="taskForms.controls['storyPoint'].hasError('required')"
+              [displayError]="isFieldValid('storyPoint')" errorMsg="*Please select the amount of story points">
+            </app-form-validation-common>
+          </div>
+          <br />
+          <div class="row">
+            <label for="impactedArea">Impact area</label>
+            <textarea id="impactedArea" class="form-control" formControlName="impactedArea"
+              [(ngModel)]="task.impactedArea" placeholder="Impacted Area" rows="3" maxlength="255"></textarea>
+            <app-form-validation-common *ngIf="taskForms.controls['impactedArea'].hasError('required')"
+              [displayError]="isFieldValid('impactedArea')" errorMsg="*Please enter an impacted area">
+            </app-form-validation-common>
+          </div>
+          <br />
+          <div class="row">
+            <label for="description">Description</label>
+            <textarea id="description" class="form-control" formControlName="description" [(ngModel)]="task.description"
+              placeholder="Description" rows="3" maxlength="255"></textarea>
+            <app-form-validation-common *ngIf="taskForms.controls['description'].hasError('required')"
+              [displayError]="isFieldValid('description')" errorMsg="*Please enter a brief description">
+            </app-form-validation-common>
+          </div>
+          <br />
+          <div class="row">
+            <label for="summary">Summary</label>
+            <textarea id="summary" class="form-control" formControlName="summary" [(ngModel)]="task.summary"
+              placeholder="Summary" rows="3" maxlength="255"></textarea>
+            <app-form-validation-common *ngIf="taskForms.controls['summary'].hasError('required')"
+              [displayError]="isFieldValid('summary')" errorMsg="*Please enter a summary of your description">
+            </app-form-validation-common>
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="row" style="float: left" *ngIf="isDevQAInProgressShowing">
+        <button class="submit1" style="margin-left: 0;" (click)="onSubmit()">UPDATE</button>
+        <a class="submit1" (click)="delete()">DELETE</a>
+      </div>
+      <div class="row" style="float: right" *ngIf="isDevQAInProgressShowing">
+        <button class="submit" data-bs-toggle="modal" data-bs-target="#inprogressPopup">IN
+          PROGRESS</button>
+        <div class="modal fade" id="inprogressPopup" tabindex="-1" aria-labelledby="inprogressLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form [formGroup]="inprogressForm">
+                  <div class="mb-3">
+                    <label for="Assignee">Assignee</label>
+                    <select id="Assignee" class="form-control" formControlName="assignee"
+                      (ngModelChange)="onAssigneeChange($event)">
+                      <option *ngFor="let assign of userList" [ngValue]="assign.id">
+                        {{ assign.username }} ({{ assign.fullName }})
+                      </option>
+                    </select>
+                    <app-form-validation-common [displayError]="isFieldValidinprogressPopup('assignee')"
+                      errorMsg="*Assignee is Required"></app-form-validation-common>
+                  </div>
+                  <div class="mb-3">
+                    <label for="comment">Comment</label>
+                    <textarea class="form-control" id="comment" placeholder="Comment" formControlName="comment"
+                      [(ngModel)]="task.comment" rows="3" maxlength="255"></textarea>
+                    <app-form-validation-common [displayError]="isFieldValidinprogressPopup('comment')"
+                      errorMsg="*Comment is Required"></app-form-validation-common>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="close()">
+                    CLOSE
+                  </button> -->
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="inProgress()">
+                  OK
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="float: right" *ngIf="isDevQACompleteShowing">
+        <button class="submit1" type="button" data-bs-toggle="modal" data-bs-target="#completedPopup">COMPLETE</button>
+        <div class="modal fade" id="completedPopup" tabindex="-1" aria-labelledby="completedPopupLabel"
+          aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form [formGroup]="completeForm">
+                  <div class="mb-3">
+                    <label for="Assignee">Assignee</label>
+                    <select id="Assignee" class="form-control" formControlName="assignee"
+                      (ngModelChange)="onAssigneeChange($event)">
+                      <option *ngFor="let assign of userList" [ngValue]="assign.id">
+                        {{ assign.username }} ({{ assign.fullName }})
+                      </option>
+                    </select>
+                    <app-form-validation-common [displayError]="isFieldValidInCompletePopup('assignee')"
+                      errorMsg="*Assignee is Required"></app-form-validation-common>
+                  </div>
+                  <div class="mb-3">
+                    <label for="comment">Comment</label>
+                    <textarea class="form-control" id="comment" placeholder="Comment" formControlName="comment"
+                      [(ngModel)]="task.comment" rows="3" maxlength="255"></textarea>
+                    <app-form-validation-common [displayError]="isFieldValidInCompletePopup('comment')"
+                      errorMsg="*Comment is Required"></app-form-validation-common>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="close()">
+                    CLOSE
+                  </button> -->
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="complete()">
+                  OK
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="float: right" *ngIf="isAdminPMShowing">
+        <button class="submit" (click)="close()">CLOSE</button>
+      </div>
+    </form>
+    <hr style="border-width: unset;border-color: #343a40; margin-top: 4rem;margin-bottom: 1rem;">
+    <div class="mb-3">
+      <label for="formFile" class="form-label">Upload Attachments Here</label>
+      <input id="formFile" class="form-control" type="file" (change)="uploadAttachments($event.target.files[0])" />
+    </div>
+    <nb-progress-bar [value]="progress" [displayValue]="true" status="success"></nb-progress-bar>
+    <hr style="border-width: unset;border-color: #343a40; margin-top: 4rem;margin-bottom: 1rem;">
+    <nb-card>
+      <nb-card-body>
+        <nb-tabset fullWidth>
+          <nb-tab tabTitle="Comments" [badgeText]="commentsCount" badgeStatus="success" tabIcon="bell-outline">
+            <table class="table table-striped table-hover">
+              <thead class="table-dark">
+                <tr>
+                  <th scope="col">IDENTIFIER</th>
+                  <th scope="col">Comment</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let c of comments">
+                  <td>{{ c.identifier }}</td>
+                  <td>{{ c.comment }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </nb-tab>
+          <nb-tab tabTitle="Attachments" [badgeText]="attachmentCount" badgeStatus="success" tabIcon="email-outline">
+            <table class="table table-striped table-hover">
+              <thead class="table-dark">
+                <tr>
+                  <th scope="col">IDENTIFIER</th>
+                  <th scope="col">NAME</th>
+                  <th scope="col">DESCRIPTION</th>
+                  <th scope="col">FORMAT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let a of attachments" (click)="downloadAttachment($event, a)">
+                  <td>{{ a.identifier }}</td>
+                  <td>{{ a.name }}</td>
+                  <td>{{ a.description }}</td>
+                  <td>{{ a.format }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </nb-tab>
+        </nb-tabset>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</nb-card>

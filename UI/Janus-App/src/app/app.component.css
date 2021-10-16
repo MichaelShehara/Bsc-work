@@ -1,0 +1,4 @@
+::ng-deep .nb-theme-default nb-layout.window-mode .layout nb-layout-header nav {
+  padding-left: 0;
+  padding-right: 0;
+}

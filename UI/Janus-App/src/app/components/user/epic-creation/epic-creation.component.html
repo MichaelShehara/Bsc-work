@@ -1,0 +1,64 @@
+<nb-card style="margin-left: 1rem;margin-right: 3.4rem;margin-top: 4.5rem;">
+  <div class="container1">
+    <div class="text">CREATE EPIC</div>
+    <hr style="border-width: unset;border-color: #343a40; margin-top: 1rem;margin-bottom: 1rem;">
+    <form [formGroup]="epicForm">
+      <div class="row">
+        <label for="Name">Name</label>
+        <input type="text" id="Name" class="form-control" placeholder="Enter Epic Name" formControlName="name"
+          [(ngModel)]="epic.name" maxlength="255" />
+        <app-form-validation-common *ngIf="epicForm.controls['name'].hasError('required')"
+          [displayError]="isFieldValid('name')" errorMsg="*Please assign a name for the epic">
+        </app-form-validation-common>
+      </div>
+      <br />
+      <div class="row">
+        <label for="description">Description</label>
+        <textarea class="form-control" id="Description" placeholder="Enter Description" formControlName="description"
+          rows="3" [(ngModel)]="epic.description" maxlength="255"></textarea>
+        <app-form-validation-common *ngIf="epicForm.controls['description'].hasError('required')"
+          [displayError]="isFieldValid('description')" errorMsg="*Please provide a description">
+        </app-form-validation-common>
+      </div>
+      <br />
+      <div class="row">
+        <label for="summary">Summary</label>
+        <textarea class="form-control" id="Summary" placeholder="Enter Summary" formControlName="summary"
+          [(ngModel)]="epic.summary" rows="3" maxlength="255"></textarea>
+        <app-form-validation-common *ngIf="epicForm.controls['summary'].hasError('required')"
+          [displayError]="isFieldValid('summary')" errorMsg="*Please provide a summary">
+        </app-form-validation-common>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col">
+          <label for="Priority">Priority</label>
+          <select id="Priority" name="priority" class="form-control" formControlName="priority"
+            [(ngModel)]="epic.priority">
+            <option>HIGH</option>
+            <option>LOW</option>
+            <option>MEDIUM</option>
+          </select>
+          <app-form-validation-common [displayError]="isFieldValid('priority')"
+            errorMsg="*Compulsory to set a priority">
+          </app-form-validation-common>
+        </div>
+        <div class="col">
+          <label for="Assignee">Assignee</label>
+          <select id="Assignee" class="form-control" formControlName="assignee" [(ngModel)]="epic.assignee">
+            <option *ngFor="let p of user" [ngValue]="p">
+              {{ p.fullName }} ({{ p.username }})
+            </option>
+          </select>
+          <app-form-validation-common [displayError]="isFieldValid('assignee')"
+            errorMsg="*Compulsory to assign someone">
+          </app-form-validation-common>
+        </div>
+      </div>
+      <br />
+      <a class="submit1" (click)="reset()">CANCEL</a>
+      <button class="submit" (click)="onSubmit()">CREATE</button>
+    </form>
+  </div>
+
+</nb-card>

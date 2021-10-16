@@ -1,0 +1,40 @@
+
+
+  <div class="top">
+    <table id="table">
+      <tr>
+        <td> <img src="\assets\project_lgo.png" class="rounded mx-auto d-block" alt="..."> </td>
+        <td>
+          <h1 class="heading">TaskCheck</h1>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-jelly-box">
+    <p style="color: white"> Loading... </p>
+  </ngx-spinner>
+
+  <div class="main">
+    <div class="log">
+      <h5>Welcome to TaskCheck.</h5>
+    </div>
+    <form class="form1" [formGroup]="formGroup">
+      <h6 id="loginDetails">Username</h6>
+      <input class="un" maxlength="30" type="text" placeholder="Enter Username" formControlName="username"
+        [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+      <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+        <div class="validation" *ngIf="f.username.errors.required">Username is required</div>
+      </div>
+
+      <h6 id="loginDetails">Password</h6>
+      <input class="pass" type="password" maxlength="12" placeholder="Enter Password" formControlName="password"
+        [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+      <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+        <div class="validation" *ngIf="f.password.errors.required">Password is required</div>
+      </div>
+      <button class="submit" (click)="onSubmit()">LOGIN</button><br><br>
+      <p class="signUp">Dont have an account? <a [routerLink]="['/login-register']">Sign up</a></p>
+
+    </form>
+  </div>

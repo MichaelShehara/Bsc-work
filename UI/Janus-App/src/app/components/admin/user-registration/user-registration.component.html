@@ -1,0 +1,76 @@
+<nb-card style="margin-left: 2rem;margin-right: 4.5em;margin-top: 4.5rem;">
+  <nb-card-body style="padding-left: 0;padding-bottom: 0;padding-right: 0;">
+    <div class="container1">
+      <div class="text">USER REGISTRATION</div>
+      <hr style="border-width: unset;border-color: #343a40; margin-top: 1rem;margin-bottom: 1rem;">
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit(f)" #f="ngForm">
+        <div class="row">
+          <label for="fullName">Full Name</label>
+          <input id="fullName" placeholder="NAME" formControlName="fullName" type="text" class="form-control"
+            [ngClass]="registerForm.controls['fullName'].invalid ? 'is-invalid' : ''" [(ngModel)]="user.fullName">
+          <app-form-validation-common *ngIf="registerForm.controls['fullName'].hasError('required')"
+            [displayError]="isFieldValid('fullName')" errorMsg="*Please enter your fullname">
+          </app-form-validation-common>
+        </div>
+        <br />
+        <div class="row">
+          <label for="username">Username</label>
+          <input id="username" placeholder="USERNAME (ENTER EMAIL ADDRESS)" formControlName="username" type="email"
+            class="form-control" [ngClass]="registerForm.controls['username'].invalid ? 'is-invalid' : ''"
+            [(ngModel)]="user.username">
+          <app-form-validation-common *ngIf="registerForm.controls['username'].hasError('required')"
+            [displayError]="isFieldValid('username')" errorMsg="*Please enter your email address">
+          </app-form-validation-common>
+          <app-form-validation-common *ngIf="registerForm.controls['username'].hasError('email')"
+            [displayError]="isFieldValid('username')" errorMsg="*Enter a valid email address">
+          </app-form-validation-common>
+        </div>
+        <br />
+        <div class="row">
+          <label for="password">Password</label>
+          <input id="password" placeholder="PASSWORD" formControlName="password" type="password" class="form-control"
+            [ngClass]="registerForm.controls['password'].invalid ? 'is-invalid' : ''" [(ngModel)]="user.password">
+          <app-form-validation-common *ngIf="registerForm.controls['password'].hasError('required')"
+            [displayError]="isFieldValid('password')" errorMsg="*Please enter your password!">
+          </app-form-validation-common>
+
+          <app-form-validation-common *ngIf="registerForm.controls['password'].hasError('minlength')"
+            [displayError]="isFieldValid('password')" errorMsg="*Assign minimum of 8 chractors"> <br>
+          </app-form-validation-common>
+          <app-form-validation-common *ngIf="registerForm.controls['password'].hasError('pattern')"
+            [displayError]="isFieldValid('password')"
+            errorMsg="*Please use atleast one number and one special character">
+            <br>
+          </app-form-validation-common>
+        </div>
+        <br />
+        <div class="row">
+          <label for="confirmPassword">Confirm Password</label>
+          <input id="confirmPassword" placeholder="CONFIRM PASSWORD" formControlName="confirmPassword" type="password"
+            class="form-control" [ngClass]="registerForm.controls['confirmPassword'].invalid ? 'is-invalid' : ''">
+          <app-form-validation-common *ngIf="registerForm.controls['confirmPassword'].hasError('required')"
+            [displayError]="isFieldValid('confirmPassword')" errorMsg="*Please re-enter your password">
+          </app-form-validation-common>
+          <app-form-validation-common *ngIf="registerForm.controls['confirmPassword'].hasError('mustMatch')"
+            [displayError]="isFieldValid('confirmPassword')" errorMsg="*Password does not match">
+          </app-form-validation-common>
+        </div>
+        <br />
+        <div class="row">
+          <div class="col">
+            <label for="roleList">SELECT ROLE: </label>
+            <div id="roleList" *ngFor="let role of roleList">
+              <input id="{{ role.id }}" type="checkbox" style="margin-right: 0.5rem;" value="{{ role.id }}"
+                (change)="checkboxAdd($event)">{{ role.name
+              }}
+            </div>
+            <app-form-validation-common *ngIf="registerForm.controls['role'].hasError('required')"
+            [displayError]="isFieldValid('role')" errorMsg="*Please select a role!">
+          </app-form-validation-common>
+          </div>
+        </div>
+        <button class="submit" (click)="saveUser()">Register</button>
+      </form>
+    </div>
+  </nb-card-body>
+</nb-card>
